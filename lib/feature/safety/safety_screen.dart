@@ -1,3 +1,4 @@
+import 'package:pasa/core/components/buttons/app_button.dart';
 import 'package:pasa/core/components/text/app_text.dart';
 import 'package:pasa/core/constants/app_colors.dart';
 import 'package:pasa/core/constants/app_images.dart';
@@ -45,7 +46,49 @@ class _SafetyScreenState extends State<SafetyScreen> {
           ),
         ],
       ),
-      body: Center(child: AppText(label: 'maps')),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [AppButton(label: 'label', onPressed: () {})],
+            ),
+          ),
+        ),
+      ),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.35,
+          decoration: BoxDecoration(
+            color: AppColors.secondary,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppText(
+                  label: 'Emergency Contacts',
+                  textAlign: TextAlign.left,
+                  style: AppTextStyles.bodyTextSemiBold.copyWith(
+                    color: AppColors.darkGrey,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Material(                  
+                  color: AppColors.tertiary,
+                  borderRadius: BorderRadius.circular(16),
+                  child: AppText(label: 'label'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

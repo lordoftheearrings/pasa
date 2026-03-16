@@ -15,6 +15,9 @@ class InputField extends StatelessWidget {
   final double borderWidth;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final double? width;
+  final bool shouldUseFullWidth;
+  final bool showLabel;
 
   const InputField({
     super.key,
@@ -26,56 +29,62 @@ class InputField extends StatelessWidget {
     this.controller,
     this.labelColor = AppColors.hint,
     this.borderColor = AppColors.hint,
+    this.shouldUseFullWidth = true,
+    this.showLabel = true,
     this.focusedBorderColor = AppColors.primary,
     this.focusedBorderWidth = 2.0,
     this.borderWidth = 1.0,
     this.prefixIcon,
     this.suffixIcon,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onTapOutside: (_) {
-        FocusScope.of(context).unfocus();
-      },
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        labelText: labelText,
-        labelStyle: TextStyle(color: labelColor),
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+    return SizedBox(
+      width: shouldUseFullWidth ? double.infinity : width,
+      child: TextFormField(
+        onTapOutside: (_) {
+          FocusScope.of(context).unfocus();
+        },
+        controller: controller,
+        obscureText: obscureText,
+        keyboardType: keyboardType,
+        decoration: InputDecoration(
+          labelText: showLabel ? labelText : null,
+          labelStyle: TextStyle(color: labelColor),
+          hintText: labelText,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
 
-          borderSide: BorderSide(
-            color: focusedBorderColor,
-            width: focusedBorderWidth,
+            borderSide: BorderSide(
+              color: focusedBorderColor,
+              width: focusedBorderWidth,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+            borderSide: BorderSide(color: borderColor, width: borderWidth),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+            borderSide: BorderSide(color: AppColors.error, width: borderWidth),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+            borderSide: BorderSide(
+              color: AppColors.error,
+              width: focusedBorderWidth,
+            ),
           ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-
-          borderSide: BorderSide(color: borderColor, width: borderWidth),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-
-          borderSide: BorderSide(color: AppColors.error, width: borderWidth),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-
-          borderSide: BorderSide(
-            color: AppColors.error,
-            width: focusedBorderWidth,
-          ),
-        ),
+        validator: validator,
       ),
-      validator: validator,
     );
   }
 }

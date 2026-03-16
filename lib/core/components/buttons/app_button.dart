@@ -13,6 +13,7 @@ class AppButton extends StatelessWidget {
   final double borderRadius;
   final bool isDisabled;
   final double? width;
+  final double? height;
 
   const AppButton({
     super.key,
@@ -25,17 +26,18 @@ class AppButton extends StatelessWidget {
     this.borderRadius = 10,
     this.isDisabled = false,
     this.width,
+    this.height = 50,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50.0,
+      height: height,
       width: shouldUseFullWidth ? double.infinity : width,
       child: ElevatedButton(
         onPressed: isDisabled || isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: isDisabled ? AppColors.hint : color,
+          backgroundColor: isDisabled ? AppColors.tertiary : color,
           elevation: 0,
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           shape: RoundedRectangleBorder(

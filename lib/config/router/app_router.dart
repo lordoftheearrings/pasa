@@ -12,13 +12,18 @@ import 'package:pasa/feature/auth/screens/signup/signup_password.dart';
 import 'package:pasa/feature/auth/screens/signup/singup_verification.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pasa/feature/maps/map_screen.dart';
-import 'package:pasa/feature/rides/rides_screen.dart';
-import 'package:pasa/feature/safety/safety_screen.dart';
+// import 'package:pasa/feature/maps/map_screen.dart';
+// import 'package:pasa/feature/rides/rides_screen.dart';
+// import 'package:pasa/feature/safety/safety_screen.dart';
+import 'package:pasa/sugam_part/lib/ble_controller.dart';
+import 'package:pasa/sugam_part/lib/details_page.dart';
+import 'package:pasa/sugam_part/lib/home_page.dart';
+import 'package:pasa/sugam_part/lib/map_page.dart';
+import 'package:pasa/sugam_part/lib/status_page.dart';
 import 'app_routes.dart';
 import 'package:pasa/feature/auth/screens/signin/signin_screen.dart';
 import 'package:pasa/feature/auth/screens/signup/signup_screen.dart';
-import 'package:pasa/feature/home/home.dart';
+// import 'package:pasa/feature/home/home.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>();
@@ -46,6 +51,7 @@ class GoRouterRefreshStream extends ChangeNotifier {
   }
 }
 
+final bleController = getIt<BleController>();
 final sessionService = getIt<UserSessionService>();
 
 final loginPaths = [
@@ -74,6 +80,7 @@ GoRouter appRouter(AuthBloc authBloc) {
       authBloc,
     ),
     navigatorKey: _rootNavigatorKey,
+    initialLocation: AppRoutes.safety.path,
     routes: [
       GoRoute(
         name: AppRoutes.signIn.name,
@@ -123,7 +130,7 @@ GoRouter appRouter(AuthBloc authBloc) {
           return Scaffold(
             body: navigationShell,
             bottomNavigationBar: AppBottomNavBar(
-              currentIndex: navigationShell.currentIndex,
+              navigationShell: navigationShell,
             ),
           );
         },
@@ -134,7 +141,7 @@ GoRouter appRouter(AuthBloc authBloc) {
               GoRoute(
                 name: AppRoutes.home.name,
                 path: AppRoutes.home.path,
-                builder: (_, _) => Home(),
+                builder: (_, _) => HomePage(bleController: bleController),
               ),
             ],
           ),
@@ -144,7 +151,7 @@ GoRouter appRouter(AuthBloc authBloc) {
               GoRoute(
                 name: AppRoutes.safety.name,
                 path: AppRoutes.safety.path,
-                builder: (_, _) => SafetyScreen(),
+                builder: (_, _) => DetailsPage(bleController: bleController),
               ),
             ],
           ),
@@ -154,7 +161,7 @@ GoRouter appRouter(AuthBloc authBloc) {
               GoRoute(
                 name: AppRoutes.rides.name,
                 path: AppRoutes.rides.path,
-                builder: (_, _) => RidesScreen(),
+                builder: (_, _) => StatusPage(bleController: bleController),
               ),
             ],
           ),
@@ -164,7 +171,7 @@ GoRouter appRouter(AuthBloc authBloc) {
               GoRoute(
                 name: AppRoutes.maps.name,
                 path: AppRoutes.maps.path,
-                builder: (_, _) => MapScreen(),
+                builder: (_, _) => MapPage(bleController: bleController),
               ),
             ],
           ),

@@ -1,8 +1,8 @@
+import 'package:pasa/core/components/buttons/app_button.dart';
 import 'package:pasa/core/components/messengers/app_snackbar.dart';
 import 'package:pasa/core/components/text/app_text.dart';
 import 'package:pasa/core/constants/app_colors.dart';
 import 'package:pasa/core/constants/app_images.dart';
-import 'package:pasa/core/constants/app_textstyles.dart';
 import 'package:pasa/core/top_level/di.dart';
 import 'package:pasa/feature/auth/bloc/auth_bloc/auth_bloc.dart';
 import 'package:pasa/feature/auth/bloc/auth_bloc/auth_state.dart';
@@ -22,6 +22,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final session = getIt<SupabaseClient>();
+  final ValueNotifier<bool> _helmetWear = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _alcohol = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _ready = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -37,6 +40,14 @@ class _HomeState extends State<Home> {
         context.read<SignupBloc>().add(const SignupEvent.clear());
       }
     });
+    _helmetWear.addListener(_updateReady);
+    _alcohol.addListener(_updateReady);
+
+    _updateReady();
+  }
+
+  void _updateReady() {
+    _ready.value = _helmetWear.value && _alcohol.value;
   }
 
   @override
@@ -51,11 +62,13 @@ class _HomeState extends State<Home> {
           children: [
             CircleAvatar(radius: 30, backgroundColor: AppColors.primary),
             SizedBox(width: 8),
-            IconButton(
-              onPressed: () {
-                session.auth.signOut();
-              },
-              icon: Icon(Icons.notifications_none_outlined, size: 35),
+            Expanded(
+              child: IconButton(
+                onPressed: () {
+                  session.auth.signOut();
+                },
+                icon: Icon(Icons.notifications_none_outlined, size: 35),
+              ),
             ),
           ],
         ),
@@ -65,6 +78,7 @@ class _HomeState extends State<Home> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               children: [
+                AppText(label: session.auth.currentUser?.email ?? ''),
                 SizedBox(
                   height: 60,
                   width: 60,
@@ -104,7 +118,7 @@ class _HomeState extends State<Home> {
               child: Opacity(
                 opacity: 0.8,
                 child: SizedBox(
-                  height: 500,
+                  height: 450,
                   width: 300,
                   child: Image.asset(AppImages.helmetHome, fit: BoxFit.contain),
                 ),
@@ -117,19 +131,38 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.notifications_none_outlined, size: 35),
+                    AppButton(
+                      label: 'WEAR',
+                      onPressed: () {
+                        _helmetWear.value = !_helmetWear.value;
+                      },
+                      width: 50,
+                      shouldUseFullWidth: false,
+                      color: AppColors.tertiary,
+                      borderRadius: 32,
+                      textcolor: AppColors.white,
                     ),
                     SizedBox(height: 16),
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.notifications_none_outlined, size: 35),
+                    AppButton(
+                      label: 'ALCOHOL',
+                      onPressed: () {
+                        _alcohol.value = !_alcohol.value;
+                      },
+                      width: 50,
+                      shouldUseFullWidth: false,
+                      color: AppColors.tertiary,
+                      borderRadius: 32,
+                      textcolor: AppColors.white,
                     ),
                     SizedBox(height: 16),
-                    AppText(
+                    AppButton(
                       label: 'SOS',
-                      style: AppTextStyles.tertiaryColorText,
+                      onPressed: () {},
+                      width: 50,
+                      shouldUseFullWidth: false,
+                      color: AppColors.tertiary,
+                      borderRadius: 32,
+                      textcolor: AppColors.white,
                     ),
                     SizedBox(height: 16),
                     Icon(
@@ -174,9 +207,149 @@ class _HomeState extends State<Home> {
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                AppText(
-                                  label: session.auth.currentUser?.email ?? '',
+                                GridView(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 8,
+                                        mainAxisSpacing: 8,
+                                      ),
+                                  children: [
+                                    ValueListenableBuilder(
+                                      valueListenable: _helmetWear,
+                                      builder: (context, value, child) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: value
+                                                ? AppColors.primary
+                                                : AppColors.tertiary,
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  value
+                                                      ? AppImages.helmet
+                                                      : AppImages.noHelmet,
+                                                  height: 50,
+                                                ),
+                                                SizedBox(height: 8),
+                                                AppText(
+                                                  label: value
+                                                      ? 'Helmet Worn'
+                                                      : 'No Helmet',
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    ValueListenableBuilder(
+                                      valueListenable: _alcohol,
+                                      builder: (context, value, child) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: value
+                                                ? AppColors.primary
+                                                : AppColors.tertiary,
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  value
+                                                      ? AppImages.noAlcohol
+                                                      : AppImages.yesAlcohol,
+                                                  height: 50,
+                                                ),
+                                                SizedBox(height: 8),
+                                                Expanded(
+                                                  child: AppText(
+                                                    label: value
+                                                        ? 'No Alcohol'
+                                                        : 'AlcoholDetected',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    ValueListenableBuilder(
+                                      valueListenable: _ready,
+                                      builder: (context, value, child) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: value
+                                                ? AppColors.primary
+                                                : AppColors.secondary,
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  value
+                                                      ? AppImages.appName
+                                                      : AppImages.logo,
+                                                  height: 50,
+                                                ),
+                                                SizedBox(height: 8),
+                                                AppText(
+                                                  label: value
+                                                      ? 'Ready'
+                                                      : 'Not Ready',
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 16),
+                                ValueListenableBuilder(
+                                  valueListenable: _ready,
+                                  builder: (context, value, child) {
+                                    return AppButton(
+                                      isDisabled: !_ready.value,
+                                      label: 'START',
+                                      textcolor: AppColors.white,
+                                      onPressed: () {},
+                                      height: 70,
+                                    );
+                                  },
                                 ),
                               ],
                             ),

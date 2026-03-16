@@ -21,6 +21,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pasa/feature/auth/utils/auth_helper.dart';
 import 'package:pasa/core/components/inputfield/inputfield.dart';
 import 'package:pasa/core/components/buttons/app_button.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState; 
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -190,8 +191,11 @@ class _SigninScreenState extends State<SigninScreen> {
                       const SizedBox(height: 8.0),
                       AppOutlinedbutton(
                         label: 'Sign in with Google',
-                        onPressed: () {
-                          context.pushNamed(AppRoutes.home.name);
+                        onPressed: () async {
+                          await getIt<SupabaseClient>().auth.signInWithPassword(
+                            password: 'userone',
+                            email: 'user@one.com',
+                          );
                         },
                         leading: Image.asset(
                           AppImages.googleLogo,

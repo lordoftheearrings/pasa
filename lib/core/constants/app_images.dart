@@ -7,6 +7,12 @@ class AppImages {
 
   static const String helmet = 'assets/images/helmet.png';
 
+  static const String noHelmet = 'assets/images/no_helmet.png';
+
+  static const String yesAlcohol = 'assets/images/yes_alcohol.png';
+
+  static const String noAlcohol = 'assets/images/no_alcohol.png';
+
   static const String helmetHome = 'assets/images/helmet_home.png';
 
   static const String googleLogo = 'assets/images/googlelogo.png';

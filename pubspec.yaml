@@ -28,6 +28,16 @@ dependencies:
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.5.4
   url_launcher: ^6.3.2
+  flutter_osm_plugin: ^1.4.3
+  geolocator: ^14.0.1
+  flutter_blue_plus: ^2.1.0
+  logger: ^2.6.2
+  permission_handler: ^12.0.1
+  latlong2: ^0.9.1
+  flutter_map: ^8.2.2
+  audioplayers: ^6.5.1
+  vibration: ^3.1.5
+
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +62,7 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/alarm.mp3
     - assets/images/
     - assets/fonts/
   fonts:

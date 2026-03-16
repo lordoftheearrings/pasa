@@ -1,5 +1,6 @@
 import 'package:pasa/core/components/messengers/connectivity_listener.dart';
 import 'package:pasa/core/constants/app_colors.dart';
+import 'package:pasa/core/services/crash_service.dart';
 import 'package:pasa/core/services/user_session_service.dart';
 import 'package:pasa/core/top_level/di.dart';
 import 'package:pasa/feature/auth/bloc/auth_bloc/auth_bloc.dart';
@@ -58,7 +59,10 @@ class _AppState extends State<App> {
                 canvasColor: AppColors.black,
               ),
               builder: (context, child) {
-                return ConnectivityListener(child: child!);
+                return CrashListener(
+                  crashService: getIt<CrashService>(),
+                  child: ConnectivityListener(child: child!),
+                );
               },
             );
           },
