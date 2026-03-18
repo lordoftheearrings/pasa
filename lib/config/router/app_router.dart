@@ -80,7 +80,7 @@ GoRouter appRouter(AuthBloc authBloc) {
       authBloc,
     ),
     navigatorKey: _rootNavigatorKey,
-    initialLocation: AppRoutes.safety.path,
+    initialLocation: AppRoutes.home.path,
     routes: [
       GoRoute(
         name: AppRoutes.signIn.name,
@@ -107,24 +107,24 @@ GoRouter appRouter(AuthBloc authBloc) {
         path: AppRoutes.signUpPw.path,
         builder: (_, _) => SignupSetPasswordScreen(),
       ),
-      GoRoute(
-        name: AppRoutes.signUpVerification.name,
-        path: AppRoutes.signUpVerification.path,
-        builder: (_, _) => SignupVerification(),
-      ),
-      GoRoute(
-        path: '/${AppLinkUrls.verifyUser}',
-        builder: (_, state) => SignupCompletionScreen(uri: state.uri),
-      ),
-      GoRoute(
-        path: '/${AppLinkUrls.verifyUserbutHasNoProfile}',
-        builder: (_, state) => SignupCompletionScreen(uri: state.uri),
-      ),
-      GoRoute(
-        name: AppRoutes.profileCompletion.name,
-        path: AppRoutes.profileCompletion.path,
-        builder: (_, _) => ProfileCompletionScreen(),
-      ),
+      // GoRoute(
+      //   name: AppRoutes.signUpVerification.name,
+      //   path: AppRoutes.signUpVerification.path,
+      //   builder: (_, _) => SignupVerification(),
+      // ),
+      // GoRoute(
+      //   path: '/${AppLinkUrls.verifyUser}',
+      //   builder: (_, state) => SignupCompletionScreen(uri: state.uri),
+      // ),
+      // GoRoute(
+      //   path: '/${AppLinkUrls.verifyUserbutHasNoProfile}',
+      //   builder: (_, state) => SignupCompletionScreen(uri: state.uri),
+      // ),
+      // GoRoute(
+      //   name: AppRoutes.profileCompletion.name,
+      //   path: AppRoutes.profileCompletion.path,
+      //   builder: (_, _) => ProfileCompletionScreen(),
+      // ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return Scaffold(
@@ -188,10 +188,6 @@ GoRouter appRouter(AuthBloc authBloc) {
       }
 
       if (session != null) {
-        // final hasProfile = await sessionService.hasProfile(session.user.id);
-        // if (!hasProfile) {
-        //   return AppRoutes.profileCompletion.path;
-        // }
         if (onLoginPath) {
           return AppRoutes.home.path;
         }

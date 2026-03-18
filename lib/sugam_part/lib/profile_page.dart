@@ -322,7 +322,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 32),
 
                   // Stats Cards
-                  Row(
+                  Row( //TODO: add stats
                     children: [
                       _buildStatCard(
                         icon: Icons.access_time,
@@ -342,24 +342,23 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   const SizedBox(height: 12),
 
-                  Row(
-                    children: [
-                      _buildStatCard(
-                        icon: Icons.timer,
-                        label: "Avg Time",
-                        value: "-- min",
-                        color: Colors.orange,
-                      ),
-                      const SizedBox(width: 12),
-                      _buildStatCard(
-                        icon: Icons.favorite,
-                        label: "Avg HR",
-                        value: "-- BPM",
-                        color: Colors.red,
-                      ),
-                    ],
-                  ),
-
+                  // Row(
+                  //   children: [
+                  //     _buildStatCard(
+                  //       icon: Icons.timer,
+                  //       label: "Avg Time",
+                  //       value: "-- min",
+                  //       color: Colors.orange,
+                  //     ),
+                  //     const SizedBox(width: 12),
+                  //     _buildStatCard(
+                  //       icon: Icons.favorite,
+                  //       label: "Avg HR",
+                  //       value: "-- BPM",
+                  //       color: Colors.red,
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: 32),
                   SizedBox(height: 16),
                   AppButton(
@@ -430,7 +429,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   //                 ),
                   //                 TextButton(
                   //                   onPressed: () {
-                  //                     // TODO: Delete account logic
                   //                     Navigator.pop(context);
                   //                     _showSnackBar(
                   //                       "Account deletion not implemented",

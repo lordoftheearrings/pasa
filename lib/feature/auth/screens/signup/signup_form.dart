@@ -7,6 +7,7 @@ import 'package:pasa/core/components/messengers/dialog_box.dart';
 import 'package:pasa/core/components/inputfield/inputfield.dart';
 import 'package:pasa/core/constants/app_colors.dart';
 import 'package:pasa/core/constants/app_textstyles.dart';
+import 'package:pasa/core/enums/gender.dart';
 import 'package:pasa/feature/auth/bloc/signup_bloc/signup_bloc.dart';
 import 'package:pasa/feature/auth/bloc/signup_bloc/signup_event.dart';
 import 'package:pasa/feature/auth/bloc/signup_bloc/signup_state.dart';
@@ -26,8 +27,12 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _phonecontroller = TextEditingController();
   final TextEditingController _namecontroller = TextEditingController();
+  final TextEditingController _bldgrpcontroller = TextEditingController();
+  final TextEditingController _medicalinfocontroller = TextEditingController();
   final GlobalKey<FormState> _signupFormKey = GlobalKey<FormState>();
-
+  DateTime? date;
+  Gender? selectedGender;
+  String? _selectedBloodGroup;
   @override
   void initState() {
     super.initState();
@@ -76,12 +81,13 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
       onPopInvokedWithResult: (_, _) => handleBack(context),
 
       child: Form(
-        // autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _signupFormKey,
         child: Scaffold(
           backgroundColor: AppColors.black,
           appBar: AppBar(
             backgroundColor: AppColors.black,
+            title: AppText(label: 'Sign Up', style: AppTextStyles.heading3),
+            centerTitle: true,
             leading: IconButton(
               icon: const Icon(Icons.chevron_left, size: 24),
               onPressed: () => handleBack(context),
@@ -145,7 +151,12 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
                         const SizedBox(height: 16.0),
                         DateSelector(
                           label: 'Date of Birth',
-                          onDateSelected: (value) {},
+                          selectedDate: date,
+                          onDateSelected: (value) {
+                            setState(() {
+                              date = value;
+                            });
+                          },
                         ),
                         const SizedBox(height: 16.0),
                         AppText(
@@ -154,7 +165,14 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
                           textAlign: TextAlign.start,
                         ),
                         const SizedBox(height: 16.0),
-                        GenderSelection(onChanged: (gender) {}),
+                        GenderSelection(
+                          onChanged: (gender) {
+                            setState(() {
+                              selectedGender = gender;
+                            });
+                          },
+                          selected: selectedGender,
+                        ),
                         const SizedBox(height: 16.0),
                         AppText(
                           label: 'Blood Group',
@@ -162,13 +180,53 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
                           textAlign: TextAlign.start,
                         ),
                         const SizedBox(height: 16.0),
-                        InputField(
-                          labelText: "Full Name",
-                          controller: _namecontroller,
-                          validator: (value) =>
-                              AuthHelper.notNullValidation(value),
+                        DropdownButtonFormField<String>(
+                          decoration: InputDecoration(
+                            focusColor: AppColors.primary,
+                            labelText: "Blood Group",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(color: AppColors.primary),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 16,
+                            ),
+                          ),
+                          value: _selectedBloodGroup,
+                          items:
+                              ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+                                  .map(
+                                    (bg) => DropdownMenuItem(
+                                      value: bg,
+                                      child: Text(bg),
+                                    ),
+                                  )
+                                  .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedBloodGroup = value!;
+                              _bldgrpcontroller.text = value;
+                            });
+                          },
+                          validator: (value) => value == null || value.isEmpty
+                              ? 'Please select blood group'
+                              : null,
                         ),
                         const SizedBox(height: 16.0),
+                        AppText(
+                          label: 'Medical Information',
+                          style: AppTextStyles.heading3,
+                          textAlign: TextAlign.start,
+                        ),
+                        const SizedBox(height: 16.0),
+                        InputField(
+                          labelText: "Max 50 Characters",
+                          controller: _medicalinfocontroller,
+                          validator: (value) =>
+                              AuthHelper.validateMedicalInfo(value),
+                        ),
+                        const SizedBox(height: 32.0),
                       ],
                     );
                   },
@@ -176,7 +234,7 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
               ),
             ),
           ),
-          bottomSheet: Container(
+          bottomNavigationBar: Container(
             color: AppColors.black,
             child: Padding(
               padding: EdgeInsets.only(left: 16, right: 16, bottom: 32),

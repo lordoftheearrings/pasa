@@ -215,8 +215,6 @@ class _StatusPageState extends State<StatusPage> with TickerProviderStateMixin {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Heart Rate Section
-            
-
             const SizedBox(height: 16),
 
             // // Heart Rate Chart
@@ -366,15 +364,15 @@ class _StatusPageState extends State<StatusPage> with TickerProviderStateMixin {
                 {"label": "Z", "value": gyroZ.toStringAsFixed(2)},
               ],
             ),
-            const SizedBox(height: 16),
-            _buildVitalCard(
-              label: "HEART RATE",
-              value: heartRate > 0 ? heartRate.toString() : "--",
-              unit: "BPM",
-              icon: Icons.favorite,
-              color: _getHeartRateColor(),
-              animate: true,
-            ),
+            // const SizedBox(height: 16),
+            // _buildVitalCard(
+            //   label: "HEART RATE",
+            //   value: heartRate > 0 ? heartRate.toString() : "--",
+            //   unit: "BPM",
+            //   icon: Icons.favorite,
+            //   color: _getHeartRateColor(),
+            //   animate: true,
+            // ),
           ],
         ),
       ),

@@ -39,6 +39,13 @@ class AuthHelper {
     return null;
   }
 
+  static String? validateMedicalInfo(String? value) {
+    if (value == null || value.isEmpty || value.length > 50) {
+      return 'Required Field & Max 50 characters only';
+    }
+    return null;
+  }
+
   static String? validatePassword(
     String? value, {
     bool reqStrengthCheck = false,

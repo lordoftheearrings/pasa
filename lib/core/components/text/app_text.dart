@@ -9,7 +9,7 @@ class AppText extends StatelessWidget {
   final TextAlign textAlign;
   final double fontSize;
   final Color color;
-  final String fontFamily;
+  final String? fontFamily;
   final FontWeight fontWeight;
   final double letterSpacing;
   final double wordSpacing;
@@ -22,7 +22,7 @@ class AppText extends StatelessWidget {
     this.textAlign = TextAlign.center,
     this.fontSize = 16.0,
     this.color = AppColors.white,
-    this.fontFamily = AppFonts.primary,
+    this.fontFamily,
     this.fontWeight = FontWeight.normal,
     this.letterSpacing = 0.0,
     this.wordSpacing = 0.0,

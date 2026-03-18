@@ -51,6 +51,7 @@ class _AppState extends State<App> {
             final authBloc = context.read<AuthBloc>();
 
             return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
               routerConfig: appRouter(authBloc),
               themeMode: ThemeMode.dark,
               darkTheme: ThemeData(

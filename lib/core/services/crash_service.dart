@@ -113,7 +113,7 @@ class _CrashOverlayState extends State<CrashOverlay> {
 
   void _vibrateLoop() async {
     while (_vibrating) {
-      if (await Vibration.hasVibrator() ?? false) {
+      if (await Vibration.hasVibrator()) {
         Vibration.vibrate(duration: 500); // vibrate 0.5 sec
         await Future.delayed(
           Duration(milliseconds: 700),
@@ -146,8 +146,8 @@ class _CrashOverlayState extends State<CrashOverlay> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.warning, color: Colors.red, size: 100),
-                const SizedBox(height: 16),
+                WarningIcon(),
+                const SizedBox(height: 40),
                 const Text(
                   "Crash Detected",
                   style: TextStyle(fontSize: 26, color: Colors.white),
@@ -157,10 +157,10 @@ class _CrashOverlayState extends State<CrashOverlay> {
                 /// 🔥 Countdown updates correctly now
                 ValueListenableBuilder<int>(
                   valueListenable: widget.crashService.countdown,
-                  builder: (_, seconds, __) {
+                  builder: (_, seconds, _) {
                     return Text(
                       "Sending SOS in ${seconds}s",
-                      style: const TextStyle(fontSize: 18, color: Colors.black),
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
                     );
                   },
                 ),
@@ -171,13 +171,56 @@ class _CrashOverlayState extends State<CrashOverlay> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                   ),
-                  child: const Text("I'm OK, CANCEL SOS",style: TextStyle(color: AppColors.black),),
+                  child: const Text(
+                    "I'm OK, CANCEL SOS",
+                    style: TextStyle(color: AppColors.black, fontSize: 18),
+                  ),
                 ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class WarningIcon extends StatefulWidget {
+  const WarningIcon({super.key});
+
+  @override
+  State<WarningIcon> createState() => _WarningIconState();
+}
+
+class _WarningIconState extends State<WarningIcon>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
+
+    _animation = Tween<double>(begin: 0.8, end: 2.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _animation,
+      child: const Icon(Icons.warning, color: Colors.yellow, size: 150),
     );
   }
 }

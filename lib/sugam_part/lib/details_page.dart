@@ -1,7 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:pasa/core/top_level/di.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'ble_controller.dart';
 
@@ -135,7 +134,6 @@ class _DetailsPageState extends State<DetailsPage> {
   //   String message =
   //       "🚨 EMERGENCY ALERT! Crash detected at GPS: $lat, $lng. Please respond immediately.";
 
-  //   // TODO: Integrate with SMS API (Twilio, etc.)
   //   print("Sending emergency SMS to all contacts: $message");
 
   //   _showSnackBar("Emergency notifications sent!", Colors.red);
@@ -156,6 +154,10 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   void _showAddContactDialog() {
+    if (emergencyContacts.length == 3) {
+      _showSnackBar('Only 3 contacts can be added at a time', Colors.red);
+      return;
+    }
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -314,7 +316,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "These contacts will be notified in case of emergency",
+                  "These contacts will be notified in case of emergency\n\nOnly 3 contacts can be added at a time",
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.8),
                     fontSize: 12,
@@ -327,7 +329,7 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
 
           // Contacts List
-          Expanded(
+          Flexible(
             child: isLoading
                 ? const Center(
                     child: CircularProgressIndicator(color: Colors.green),

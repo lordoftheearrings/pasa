@@ -24,10 +24,10 @@ class DateSelector extends StatelessWidget {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.light(
+            colorScheme: ColorScheme.dark(
               primary: AppColors.primary,
-              onPrimary: AppColors.black,
-              onSurface: AppColors.white,
+              onPrimary: AppColors.white,
+              onSurface: AppColors.secondary,
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(foregroundColor: AppColors.primary),

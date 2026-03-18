@@ -734,10 +734,7 @@ class BleController {
       logger.w("BLE not ready — command queued: $command");
 
       // Only queue if not already queued (prevents duplicates)
-      if (_pendingCommand == null) {
-        // ← THIS IS THE FIX ✅
-        _pendingCommand = command;
-      }
+      _pendingCommand ??= command;
       return false;
     }
 

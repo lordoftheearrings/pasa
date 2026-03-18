@@ -347,7 +347,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                             point: LatLng(latitude, longitude),
                             child: AnimatedBuilder(
                               animation: _pulseController,
-                              builder: (_, __) {
+                              builder: (_, _) {
                                 final scale = 1 + _pulseController.value * 0.3;
                                 return Stack(
                                   alignment: Alignment.center,

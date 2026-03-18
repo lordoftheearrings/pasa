@@ -21,7 +21,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pasa/feature/auth/utils/auth_helper.dart';
 import 'package:pasa/core/components/inputfield/inputfield.dart';
 import 'package:pasa/core/components/buttons/app_button.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState; 
+import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -106,8 +106,8 @@ class _SigninScreenState extends State<SigninScreen> {
                         height: MediaQuery.of(context).size.height * 0.10,
                       ),
                       SizedBox(
-                        height: 140,
-                        width: 140,
+                        height: 160,
+                        width: 160,
                         child: Image.asset(AppImages.logo, fit: BoxFit.contain),
                       ),
                       const SizedBox(height: 16.0),
@@ -115,9 +115,11 @@ class _SigninScreenState extends State<SigninScreen> {
                         label: 'Welcome, to PASA',
                         style: AppTextStyles.heading1,
                       ),
-                      const SizedBox(height: 16.0),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                      ),
                       InputField(
-                        labelText: "Phone number or email",
+                        labelText: "Email",
                         validator: (value) =>
                             AuthHelper.validateEmailorPhone(value),
                         controller: emailController,
@@ -155,54 +157,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           style: AppTextStyles.primaryColorText16,
                         ),
                       ),
-                      const SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Divider(
-                                color: AppColors.white,
-                                thickness: 1,
-                                endIndent: 10,
-                              ),
-                            ),
-                            const AppText(
-                              label: 'OR',
-                              style: AppTextStyles.bodyText16,
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Divider(
-                                color: AppColors.white,
-                                thickness: 1,
-                                indent: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      const AppText(
-                        label: 'Continue with',
-                        style: AppTextStyles.bodyText16,
-                      ),
-                      const SizedBox(height: 8.0),
-                      AppOutlinedbutton(
-                        label: 'Sign in with Google',
-                        onPressed: () async {
-                          await getIt<SupabaseClient>().auth.signInWithPassword(
-                            password: 'userone',
-                            email: 'user@one.com',
-                          );
-                        },
-                        leading: Image.asset(
-                          AppImages.googleLogo,
-                          height: 24,
-                          width: 24,
-                        ),
-                      ),
+
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.1,
                       ),
