@@ -7,22 +7,21 @@ part 'signup_event.freezed.dart';
 abstract class SignupEvent with _$SignupEvent {
   const factory SignupEvent.loadInitialData() = LoadInitialData;
 
-  const factory SignupEvent.updateName({
-    required String fname,
-    String? mname,
-    required String lname,
-  }) = UpdateName;
+  const factory SignupEvent.updateName(String name) = UpdateName;
 
   const factory SignupEvent.updateEmail(String email) = UpdateEmail;
   const factory SignupEvent.updatePhone(String phone) = UpdatePhone;
+  const factory SignupEvent.updateAddress(String address) = UpdateAddress;
+  const factory SignupEvent.updateBloodGroup(String bloodGroup) =
+      UpdateBloodGroup;
+  const factory SignupEvent.updateEmergencyNote(String emergencyNote) =
+      UpdateEmergencyNote;
 
   const factory SignupEvent.updateGender(Gender? gender) = UpdateGender;
   const factory SignupEvent.updateDob(DateTime? dob) = UpdateDob;
 
   const factory SignupEvent.updateUsePhoneNumber(bool value) =
       UpdateUsePhoneNumber;
-  const factory SignupEvent.updateHasMiddleName(bool value) =
-      UpdateHasMiddleName;
 
   const factory SignupEvent.clear() = ClearSignupData;
 

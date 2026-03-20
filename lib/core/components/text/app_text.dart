@@ -1,7 +1,6 @@
 import 'package:pasa/core/constants/app_textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:pasa/core/constants/app_colors.dart';
-import 'package:pasa/core/constants/app_fonts.dart';
 
 class AppText extends StatelessWidget {
   final String label;

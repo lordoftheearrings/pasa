@@ -12,30 +12,26 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc(this.signupService) : super(SignupState.initial()) {
     on<LoadInitialData>((event, emit) {
       final data = SignupModel.data(
+        name: signupService.getString(SignupKeys.name),
         email: signupService.getString(SignupKeys.email),
         phone: signupService.getString(SignupKeys.phone),
-        fname: signupService.getString(SignupKeys.fname),
-        mname: signupService.getString(SignupKeys.mname),
-        lname: signupService.getString(SignupKeys.lname),
+        address: signupService.getString(SignupKeys.address),
+        bloodGroup: signupService.getString(SignupKeys.bloodGroup),
+        emergencyNote: signupService.getString(SignupKeys.emergencyNote),
         dob: signupService.getSignupDob(),
         gender: signupService.getGender()?.name,
         usePhoneNumber:
             signupService.getBool(SignupKeys.usePhoneNumber) ?? false,
-        hasMiddleName: signupService.getBool(SignupKeys.hasMiddleName) ?? false,
       );
       emit(state.copyWith(signupData: data));
     });
 
     on<UpdateName>((event, emit) {
-      signupService.saveString(SignupKeys.fname, event.fname);
-      signupService.saveString(SignupKeys.mname, event.mname ?? '');
-      signupService.saveString(SignupKeys.lname, event.lname);
-
-      _updateName(
-        emit,
-        fname: event.fname,
-        mname: event.mname,
-        lname: event.lname,
+      signupService.saveString(SignupKeys.name, event.name);
+      emit(
+        state.copyWith(
+          signupData: state.signupData.copyWith(name: event.name),
+        ),
       );
     });
 
@@ -53,6 +49,35 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       emit(
         state.copyWith(
           signupData: state.signupData.copyWith(phone: event.phone),
+        ),
+      );
+    });
+
+    on<UpdateAddress>((event, emit) {
+      signupService.saveString(SignupKeys.address, event.address);
+      emit(
+        state.copyWith(
+          signupData: state.signupData.copyWith(address: event.address),
+        ),
+      );
+    });
+
+    on<UpdateBloodGroup>((event, emit) {
+      signupService.saveString(SignupKeys.bloodGroup, event.bloodGroup);
+      emit(
+        state.copyWith(
+          signupData: state.signupData.copyWith(bloodGroup: event.bloodGroup),
+        ),
+      );
+    });
+
+    on<UpdateEmergencyNote>((event, emit) {
+      signupService.saveString(SignupKeys.emergencyNote, event.emergencyNote);
+      emit(
+        state.copyWith(
+          signupData: state.signupData.copyWith(
+            emergencyNote: event.emergencyNote,
+          ),
         ),
       );
     });
@@ -103,31 +128,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       }
     });
 
-    on<UpdateHasMiddleName>((event, emit) {
-      final value = event.value;
-      signupService.saveBool(SignupKeys.hasMiddleName, event.value);
-
-      if (!value) {
-        signupService.saveString(SignupKeys.mname, '');
-
-        emit(
-          state.copyWith(
-            signupData: state.signupData.copyWith(
-              hasMiddleName: false,
-              mname: '',
-            ),
-          ),
-        );
-        return;
-      }
-
-      emit(
-        state.copyWith(
-          signupData: state.signupData.copyWith(hasMiddleName: true),
-        ),
-      );
-    });
-
     on<ClearSignupData>((event, emit) async {
       await signupService.clearSignupData();
       emit(SignupState.initial());
@@ -145,22 +145,5 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         emit(state.copyWith(error: 'Could not lanch email'));
       }
     });
-  }
-
-  void _updateName(
-    Emitter<SignupState> emit, {
-    String? fname,
-    String? mname,
-    String? lname,
-  }) {
-    final current = state.signupData;
-    final updated = current
-        .copyWith(
-          fname: fname ?? current.fname,
-          mname: mname ?? current.mname,
-          lname: lname ?? current.lname,
-        )
-        .createFullName();
-    emit(state.copyWith(signupData: updated));
   }
 }

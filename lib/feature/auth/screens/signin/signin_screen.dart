@@ -1,4 +1,3 @@
-import 'package:pasa/core/components/buttons/app_outlinedbutton.dart';
 import 'package:pasa/core/components/messengers/app_snackbar.dart';
 import 'package:pasa/core/components/text/app_text.dart';
 import 'package:pasa/core/components/messengers/dialog_box.dart';
@@ -21,7 +20,6 @@ import 'package:go_router/go_router.dart';
 import 'package:pasa/feature/auth/utils/auth_helper.dart';
 import 'package:pasa/core/components/inputfield/inputfield.dart';
 import 'package:pasa/core/components/buttons/app_button.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});

@@ -25,9 +25,9 @@ class UserSessionService {
 
   Future<bool> hasProfile(String userId) async {
     final response = await _supabase
-        .from('profiles')
-        .select('id')
-        .eq('id', userId)
+        .from('user_profile')
+        .select('user_id')
+        .eq('user_id', userId)
         .maybeSingle();
     return response != null;
   }

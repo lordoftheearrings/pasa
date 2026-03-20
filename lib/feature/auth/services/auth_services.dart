@@ -53,16 +53,16 @@ class AuthServices extends BaseAuthServices {
 
   @override
   Future<void> completeSignup(UserData user, SignupModel signupData) async {
-    await _supabase.from('profiles').insert({
-      'id': user.id,
+    await _supabase.from('user_profile').insert({
+      'user_id': user.id,
+      'name': signupData.name ?? user.name,
       'email': (signupData.email?.trim().isNotEmpty ?? false)
           ? signupData.email
           : user.email,
       'phone': signupData.phone ?? user.phone,
-      'fname': signupData.fname,
-      'mname': signupData.mname,
-      'lname': signupData.lname,
-      'fullname': signupData.fullname,
+      'address': signupData.address,
+      'blood_group': signupData.bloodGroup,
+      'emergency_note': signupData.emergencyNote,
       'gender': signupData.gender,
       'dob': signupData.dob?.toIso8601String(),
     });

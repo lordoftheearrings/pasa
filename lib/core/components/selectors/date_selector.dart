@@ -7,11 +7,14 @@ class DateSelector extends StatelessWidget {
   final ValueChanged<DateTime>? onDateSelected;
   final DateTime? selectedDate;
 
+  final bool enabled;
+
   const DateSelector({
     super.key,
     required this.label,
     required this.onDateSelected,
     this.selectedDate,
+    this.enabled = true,
   });
 
   Future<void> _pickDate(BuildContext context) async {
@@ -58,7 +61,7 @@ class DateSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     final displayDate = selectedDate ?? DateTime.now();
     return GestureDetector(
-      onTap: () => _pickDate(context),
+      onTap: enabled ? () => _pickDate(context) : null,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         decoration: BoxDecoration(

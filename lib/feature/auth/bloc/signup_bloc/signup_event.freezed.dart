@@ -55,18 +55,20 @@ extension SignupEventPatterns on SignupEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadInitialData value)?  loadInitialData,TResult Function( UpdateName value)?  updateName,TResult Function( UpdateEmail value)?  updateEmail,TResult Function( UpdatePhone value)?  updatePhone,TResult Function( UpdateGender value)?  updateGender,TResult Function( UpdateDob value)?  updateDob,TResult Function( UpdateUsePhoneNumber value)?  updateUsePhoneNumber,TResult Function( UpdateHasMiddleName value)?  updateHasMiddleName,TResult Function( ClearSignupData value)?  clear,TResult Function( SubmitSignup value)?  submitSignup,TResult Function( LaunchEmail value)?  launchemail,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( LoadInitialData value)?  loadInitialData,TResult Function( UpdateName value)?  updateName,TResult Function( UpdateEmail value)?  updateEmail,TResult Function( UpdatePhone value)?  updatePhone,TResult Function( UpdateAddress value)?  updateAddress,TResult Function( UpdateBloodGroup value)?  updateBloodGroup,TResult Function( UpdateEmergencyNote value)?  updateEmergencyNote,TResult Function( UpdateGender value)?  updateGender,TResult Function( UpdateDob value)?  updateDob,TResult Function( UpdateUsePhoneNumber value)?  updateUsePhoneNumber,TResult Function( ClearSignupData value)?  clear,TResult Function( SubmitSignup value)?  submitSignup,TResult Function( LaunchEmail value)?  launchemail,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case LoadInitialData() when loadInitialData != null:
 return loadInitialData(_that);case UpdateName() when updateName != null:
 return updateName(_that);case UpdateEmail() when updateEmail != null:
 return updateEmail(_that);case UpdatePhone() when updatePhone != null:
-return updatePhone(_that);case UpdateGender() when updateGender != null:
+return updatePhone(_that);case UpdateAddress() when updateAddress != null:
+return updateAddress(_that);case UpdateBloodGroup() when updateBloodGroup != null:
+return updateBloodGroup(_that);case UpdateEmergencyNote() when updateEmergencyNote != null:
+return updateEmergencyNote(_that);case UpdateGender() when updateGender != null:
 return updateGender(_that);case UpdateDob() when updateDob != null:
 return updateDob(_that);case UpdateUsePhoneNumber() when updateUsePhoneNumber != null:
-return updateUsePhoneNumber(_that);case UpdateHasMiddleName() when updateHasMiddleName != null:
-return updateHasMiddleName(_that);case ClearSignupData() when clear != null:
+return updateUsePhoneNumber(_that);case ClearSignupData() when clear != null:
 return clear(_that);case SubmitSignup() when submitSignup != null:
 return submitSignup(_that);case LaunchEmail() when launchemail != null:
 return launchemail(_that);case _:
@@ -87,18 +89,20 @@ return launchemail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadInitialData value)  loadInitialData,required TResult Function( UpdateName value)  updateName,required TResult Function( UpdateEmail value)  updateEmail,required TResult Function( UpdatePhone value)  updatePhone,required TResult Function( UpdateGender value)  updateGender,required TResult Function( UpdateDob value)  updateDob,required TResult Function( UpdateUsePhoneNumber value)  updateUsePhoneNumber,required TResult Function( UpdateHasMiddleName value)  updateHasMiddleName,required TResult Function( ClearSignupData value)  clear,required TResult Function( SubmitSignup value)  submitSignup,required TResult Function( LaunchEmail value)  launchemail,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( LoadInitialData value)  loadInitialData,required TResult Function( UpdateName value)  updateName,required TResult Function( UpdateEmail value)  updateEmail,required TResult Function( UpdatePhone value)  updatePhone,required TResult Function( UpdateAddress value)  updateAddress,required TResult Function( UpdateBloodGroup value)  updateBloodGroup,required TResult Function( UpdateEmergencyNote value)  updateEmergencyNote,required TResult Function( UpdateGender value)  updateGender,required TResult Function( UpdateDob value)  updateDob,required TResult Function( UpdateUsePhoneNumber value)  updateUsePhoneNumber,required TResult Function( ClearSignupData value)  clear,required TResult Function( SubmitSignup value)  submitSignup,required TResult Function( LaunchEmail value)  launchemail,}){
 final _that = this;
 switch (_that) {
 case LoadInitialData():
 return loadInitialData(_that);case UpdateName():
 return updateName(_that);case UpdateEmail():
 return updateEmail(_that);case UpdatePhone():
-return updatePhone(_that);case UpdateGender():
+return updatePhone(_that);case UpdateAddress():
+return updateAddress(_that);case UpdateBloodGroup():
+return updateBloodGroup(_that);case UpdateEmergencyNote():
+return updateEmergencyNote(_that);case UpdateGender():
 return updateGender(_that);case UpdateDob():
 return updateDob(_that);case UpdateUsePhoneNumber():
-return updateUsePhoneNumber(_that);case UpdateHasMiddleName():
-return updateHasMiddleName(_that);case ClearSignupData():
+return updateUsePhoneNumber(_that);case ClearSignupData():
 return clear(_that);case SubmitSignup():
 return submitSignup(_that);case LaunchEmail():
 return launchemail(_that);case _:
@@ -118,18 +122,20 @@ return launchemail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadInitialData value)?  loadInitialData,TResult? Function( UpdateName value)?  updateName,TResult? Function( UpdateEmail value)?  updateEmail,TResult? Function( UpdatePhone value)?  updatePhone,TResult? Function( UpdateGender value)?  updateGender,TResult? Function( UpdateDob value)?  updateDob,TResult? Function( UpdateUsePhoneNumber value)?  updateUsePhoneNumber,TResult? Function( UpdateHasMiddleName value)?  updateHasMiddleName,TResult? Function( ClearSignupData value)?  clear,TResult? Function( SubmitSignup value)?  submitSignup,TResult? Function( LaunchEmail value)?  launchemail,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( LoadInitialData value)?  loadInitialData,TResult? Function( UpdateName value)?  updateName,TResult? Function( UpdateEmail value)?  updateEmail,TResult? Function( UpdatePhone value)?  updatePhone,TResult? Function( UpdateAddress value)?  updateAddress,TResult? Function( UpdateBloodGroup value)?  updateBloodGroup,TResult? Function( UpdateEmergencyNote value)?  updateEmergencyNote,TResult? Function( UpdateGender value)?  updateGender,TResult? Function( UpdateDob value)?  updateDob,TResult? Function( UpdateUsePhoneNumber value)?  updateUsePhoneNumber,TResult? Function( ClearSignupData value)?  clear,TResult? Function( SubmitSignup value)?  submitSignup,TResult? Function( LaunchEmail value)?  launchemail,}){
 final _that = this;
 switch (_that) {
 case LoadInitialData() when loadInitialData != null:
 return loadInitialData(_that);case UpdateName() when updateName != null:
 return updateName(_that);case UpdateEmail() when updateEmail != null:
 return updateEmail(_that);case UpdatePhone() when updatePhone != null:
-return updatePhone(_that);case UpdateGender() when updateGender != null:
+return updatePhone(_that);case UpdateAddress() when updateAddress != null:
+return updateAddress(_that);case UpdateBloodGroup() when updateBloodGroup != null:
+return updateBloodGroup(_that);case UpdateEmergencyNote() when updateEmergencyNote != null:
+return updateEmergencyNote(_that);case UpdateGender() when updateGender != null:
 return updateGender(_that);case UpdateDob() when updateDob != null:
 return updateDob(_that);case UpdateUsePhoneNumber() when updateUsePhoneNumber != null:
-return updateUsePhoneNumber(_that);case UpdateHasMiddleName() when updateHasMiddleName != null:
-return updateHasMiddleName(_that);case ClearSignupData() when clear != null:
+return updateUsePhoneNumber(_that);case ClearSignupData() when clear != null:
 return clear(_that);case SubmitSignup() when submitSignup != null:
 return submitSignup(_that);case LaunchEmail() when launchemail != null:
 return launchemail(_that);case _:
@@ -149,17 +155,19 @@ return launchemail(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadInitialData,TResult Function( String fname,  String? mname,  String lname)?  updateName,TResult Function( String email)?  updateEmail,TResult Function( String phone)?  updatePhone,TResult Function( Gender? gender)?  updateGender,TResult Function( DateTime? dob)?  updateDob,TResult Function( bool value)?  updateUsePhoneNumber,TResult Function( bool value)?  updateHasMiddleName,TResult Function()?  clear,TResult Function( String? password)?  submitSignup,TResult Function()?  launchemail,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loadInitialData,TResult Function( String name)?  updateName,TResult Function( String email)?  updateEmail,TResult Function( String phone)?  updatePhone,TResult Function( String address)?  updateAddress,TResult Function( String bloodGroup)?  updateBloodGroup,TResult Function( String emergencyNote)?  updateEmergencyNote,TResult Function( Gender? gender)?  updateGender,TResult Function( DateTime? dob)?  updateDob,TResult Function( bool value)?  updateUsePhoneNumber,TResult Function()?  clear,TResult Function( String? password)?  submitSignup,TResult Function()?  launchemail,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case LoadInitialData() when loadInitialData != null:
 return loadInitialData();case UpdateName() when updateName != null:
-return updateName(_that.fname,_that.mname,_that.lname);case UpdateEmail() when updateEmail != null:
+return updateName(_that.name);case UpdateEmail() when updateEmail != null:
 return updateEmail(_that.email);case UpdatePhone() when updatePhone != null:
-return updatePhone(_that.phone);case UpdateGender() when updateGender != null:
+return updatePhone(_that.phone);case UpdateAddress() when updateAddress != null:
+return updateAddress(_that.address);case UpdateBloodGroup() when updateBloodGroup != null:
+return updateBloodGroup(_that.bloodGroup);case UpdateEmergencyNote() when updateEmergencyNote != null:
+return updateEmergencyNote(_that.emergencyNote);case UpdateGender() when updateGender != null:
 return updateGender(_that.gender);case UpdateDob() when updateDob != null:
 return updateDob(_that.dob);case UpdateUsePhoneNumber() when updateUsePhoneNumber != null:
-return updateUsePhoneNumber(_that.value);case UpdateHasMiddleName() when updateHasMiddleName != null:
-return updateHasMiddleName(_that.value);case ClearSignupData() when clear != null:
+return updateUsePhoneNumber(_that.value);case ClearSignupData() when clear != null:
 return clear();case SubmitSignup() when submitSignup != null:
 return submitSignup(_that.password);case LaunchEmail() when launchemail != null:
 return launchemail();case _:
@@ -180,17 +188,19 @@ return launchemail();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadInitialData,required TResult Function( String fname,  String? mname,  String lname)  updateName,required TResult Function( String email)  updateEmail,required TResult Function( String phone)  updatePhone,required TResult Function( Gender? gender)  updateGender,required TResult Function( DateTime? dob)  updateDob,required TResult Function( bool value)  updateUsePhoneNumber,required TResult Function( bool value)  updateHasMiddleName,required TResult Function()  clear,required TResult Function( String? password)  submitSignup,required TResult Function()  launchemail,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loadInitialData,required TResult Function( String name)  updateName,required TResult Function( String email)  updateEmail,required TResult Function( String phone)  updatePhone,required TResult Function( String address)  updateAddress,required TResult Function( String bloodGroup)  updateBloodGroup,required TResult Function( String emergencyNote)  updateEmergencyNote,required TResult Function( Gender? gender)  updateGender,required TResult Function( DateTime? dob)  updateDob,required TResult Function( bool value)  updateUsePhoneNumber,required TResult Function()  clear,required TResult Function( String? password)  submitSignup,required TResult Function()  launchemail,}) {final _that = this;
 switch (_that) {
 case LoadInitialData():
 return loadInitialData();case UpdateName():
-return updateName(_that.fname,_that.mname,_that.lname);case UpdateEmail():
+return updateName(_that.name);case UpdateEmail():
 return updateEmail(_that.email);case UpdatePhone():
-return updatePhone(_that.phone);case UpdateGender():
+return updatePhone(_that.phone);case UpdateAddress():
+return updateAddress(_that.address);case UpdateBloodGroup():
+return updateBloodGroup(_that.bloodGroup);case UpdateEmergencyNote():
+return updateEmergencyNote(_that.emergencyNote);case UpdateGender():
 return updateGender(_that.gender);case UpdateDob():
 return updateDob(_that.dob);case UpdateUsePhoneNumber():
-return updateUsePhoneNumber(_that.value);case UpdateHasMiddleName():
-return updateHasMiddleName(_that.value);case ClearSignupData():
+return updateUsePhoneNumber(_that.value);case ClearSignupData():
 return clear();case SubmitSignup():
 return submitSignup(_that.password);case LaunchEmail():
 return launchemail();case _:
@@ -210,17 +220,19 @@ return launchemail();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadInitialData,TResult? Function( String fname,  String? mname,  String lname)?  updateName,TResult? Function( String email)?  updateEmail,TResult? Function( String phone)?  updatePhone,TResult? Function( Gender? gender)?  updateGender,TResult? Function( DateTime? dob)?  updateDob,TResult? Function( bool value)?  updateUsePhoneNumber,TResult? Function( bool value)?  updateHasMiddleName,TResult? Function()?  clear,TResult? Function( String? password)?  submitSignup,TResult? Function()?  launchemail,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loadInitialData,TResult? Function( String name)?  updateName,TResult? Function( String email)?  updateEmail,TResult? Function( String phone)?  updatePhone,TResult? Function( String address)?  updateAddress,TResult? Function( String bloodGroup)?  updateBloodGroup,TResult? Function( String emergencyNote)?  updateEmergencyNote,TResult? Function( Gender? gender)?  updateGender,TResult? Function( DateTime? dob)?  updateDob,TResult? Function( bool value)?  updateUsePhoneNumber,TResult? Function()?  clear,TResult? Function( String? password)?  submitSignup,TResult? Function()?  launchemail,}) {final _that = this;
 switch (_that) {
 case LoadInitialData() when loadInitialData != null:
 return loadInitialData();case UpdateName() when updateName != null:
-return updateName(_that.fname,_that.mname,_that.lname);case UpdateEmail() when updateEmail != null:
+return updateName(_that.name);case UpdateEmail() when updateEmail != null:
 return updateEmail(_that.email);case UpdatePhone() when updatePhone != null:
-return updatePhone(_that.phone);case UpdateGender() when updateGender != null:
+return updatePhone(_that.phone);case UpdateAddress() when updateAddress != null:
+return updateAddress(_that.address);case UpdateBloodGroup() when updateBloodGroup != null:
+return updateBloodGroup(_that.bloodGroup);case UpdateEmergencyNote() when updateEmergencyNote != null:
+return updateEmergencyNote(_that.emergencyNote);case UpdateGender() when updateGender != null:
 return updateGender(_that.gender);case UpdateDob() when updateDob != null:
 return updateDob(_that.dob);case UpdateUsePhoneNumber() when updateUsePhoneNumber != null:
-return updateUsePhoneNumber(_that.value);case UpdateHasMiddleName() when updateHasMiddleName != null:
-return updateHasMiddleName(_that.value);case ClearSignupData() when clear != null:
+return updateUsePhoneNumber(_that.value);case ClearSignupData() when clear != null:
 return clear();case SubmitSignup() when submitSignup != null:
 return submitSignup(_that.password);case LaunchEmail() when launchemail != null:
 return launchemail();case _:
@@ -267,12 +279,10 @@ String toString() {
 
 
 class UpdateName implements SignupEvent {
-  const UpdateName({required this.fname, this.mname, required this.lname});
+  const UpdateName(this.name);
   
 
- final  String fname;
- final  String? mname;
- final  String lname;
+ final  String name;
 
 /// Create a copy of SignupEvent
 /// with the given fields replaced by the non-null parameter values.
@@ -284,16 +294,16 @@ $UpdateNameCopyWith<UpdateName> get copyWith => _$UpdateNameCopyWithImpl<UpdateN
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateName&&(identical(other.fname, fname) || other.fname == fname)&&(identical(other.mname, mname) || other.mname == mname)&&(identical(other.lname, lname) || other.lname == lname));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateName&&(identical(other.name, name) || other.name == name));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,fname,mname,lname);
+int get hashCode => Object.hash(runtimeType,name);
 
 @override
 String toString() {
-  return 'SignupEvent.updateName(fname: $fname, mname: $mname, lname: $lname)';
+  return 'SignupEvent.updateName(name: $name)';
 }
 
 
@@ -304,7 +314,7 @@ abstract mixin class $UpdateNameCopyWith<$Res> implements $SignupEventCopyWith<$
   factory $UpdateNameCopyWith(UpdateName value, $Res Function(UpdateName) _then) = _$UpdateNameCopyWithImpl;
 @useResult
 $Res call({
- String fname, String? mname, String lname
+ String name
 });
 
 
@@ -321,11 +331,9 @@ class _$UpdateNameCopyWithImpl<$Res>
 
 /// Create a copy of SignupEvent
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? fname = null,Object? mname = freezed,Object? lname = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? name = null,}) {
   return _then(UpdateName(
-fname: null == fname ? _self.fname : fname // ignore: cast_nullable_to_non_nullable
-as String,mname: freezed == mname ? _self.mname : mname // ignore: cast_nullable_to_non_nullable
-as String?,lname: null == lname ? _self.lname : lname // ignore: cast_nullable_to_non_nullable
+null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -458,6 +466,204 @@ class _$UpdatePhoneCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? phone = null,}) {
   return _then(UpdatePhone(
 null == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class UpdateAddress implements SignupEvent {
+  const UpdateAddress(this.address);
+  
+
+ final  String address;
+
+/// Create a copy of SignupEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UpdateAddressCopyWith<UpdateAddress> get copyWith => _$UpdateAddressCopyWithImpl<UpdateAddress>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateAddress&&(identical(other.address, address) || other.address == address));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,address);
+
+@override
+String toString() {
+  return 'SignupEvent.updateAddress(address: $address)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UpdateAddressCopyWith<$Res> implements $SignupEventCopyWith<$Res> {
+  factory $UpdateAddressCopyWith(UpdateAddress value, $Res Function(UpdateAddress) _then) = _$UpdateAddressCopyWithImpl;
+@useResult
+$Res call({
+ String address
+});
+
+
+
+
+}
+/// @nodoc
+class _$UpdateAddressCopyWithImpl<$Res>
+    implements $UpdateAddressCopyWith<$Res> {
+  _$UpdateAddressCopyWithImpl(this._self, this._then);
+
+  final UpdateAddress _self;
+  final $Res Function(UpdateAddress) _then;
+
+/// Create a copy of SignupEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? address = null,}) {
+  return _then(UpdateAddress(
+null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class UpdateBloodGroup implements SignupEvent {
+  const UpdateBloodGroup(this.bloodGroup);
+  
+
+ final  String bloodGroup;
+
+/// Create a copy of SignupEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UpdateBloodGroupCopyWith<UpdateBloodGroup> get copyWith => _$UpdateBloodGroupCopyWithImpl<UpdateBloodGroup>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateBloodGroup&&(identical(other.bloodGroup, bloodGroup) || other.bloodGroup == bloodGroup));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,bloodGroup);
+
+@override
+String toString() {
+  return 'SignupEvent.updateBloodGroup(bloodGroup: $bloodGroup)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UpdateBloodGroupCopyWith<$Res> implements $SignupEventCopyWith<$Res> {
+  factory $UpdateBloodGroupCopyWith(UpdateBloodGroup value, $Res Function(UpdateBloodGroup) _then) = _$UpdateBloodGroupCopyWithImpl;
+@useResult
+$Res call({
+ String bloodGroup
+});
+
+
+
+
+}
+/// @nodoc
+class _$UpdateBloodGroupCopyWithImpl<$Res>
+    implements $UpdateBloodGroupCopyWith<$Res> {
+  _$UpdateBloodGroupCopyWithImpl(this._self, this._then);
+
+  final UpdateBloodGroup _self;
+  final $Res Function(UpdateBloodGroup) _then;
+
+/// Create a copy of SignupEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? bloodGroup = null,}) {
+  return _then(UpdateBloodGroup(
+null == bloodGroup ? _self.bloodGroup : bloodGroup // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class UpdateEmergencyNote implements SignupEvent {
+  const UpdateEmergencyNote(this.emergencyNote);
+  
+
+ final  String emergencyNote;
+
+/// Create a copy of SignupEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UpdateEmergencyNoteCopyWith<UpdateEmergencyNote> get copyWith => _$UpdateEmergencyNoteCopyWithImpl<UpdateEmergencyNote>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateEmergencyNote&&(identical(other.emergencyNote, emergencyNote) || other.emergencyNote == emergencyNote));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,emergencyNote);
+
+@override
+String toString() {
+  return 'SignupEvent.updateEmergencyNote(emergencyNote: $emergencyNote)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UpdateEmergencyNoteCopyWith<$Res> implements $SignupEventCopyWith<$Res> {
+  factory $UpdateEmergencyNoteCopyWith(UpdateEmergencyNote value, $Res Function(UpdateEmergencyNote) _then) = _$UpdateEmergencyNoteCopyWithImpl;
+@useResult
+$Res call({
+ String emergencyNote
+});
+
+
+
+
+}
+/// @nodoc
+class _$UpdateEmergencyNoteCopyWithImpl<$Res>
+    implements $UpdateEmergencyNoteCopyWith<$Res> {
+  _$UpdateEmergencyNoteCopyWithImpl(this._self, this._then);
+
+  final UpdateEmergencyNote _self;
+  final $Res Function(UpdateEmergencyNote) _then;
+
+/// Create a copy of SignupEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? emergencyNote = null,}) {
+  return _then(UpdateEmergencyNote(
+null == emergencyNote ? _self.emergencyNote : emergencyNote // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -655,72 +861,6 @@ class _$UpdateUsePhoneNumberCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
   return _then(UpdateUsePhoneNumber(
-null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
-as bool,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class UpdateHasMiddleName implements SignupEvent {
-  const UpdateHasMiddleName(this.value);
-  
-
- final  bool value;
-
-/// Create a copy of SignupEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$UpdateHasMiddleNameCopyWith<UpdateHasMiddleName> get copyWith => _$UpdateHasMiddleNameCopyWithImpl<UpdateHasMiddleName>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdateHasMiddleName&&(identical(other.value, value) || other.value == value));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,value);
-
-@override
-String toString() {
-  return 'SignupEvent.updateHasMiddleName(value: $value)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $UpdateHasMiddleNameCopyWith<$Res> implements $SignupEventCopyWith<$Res> {
-  factory $UpdateHasMiddleNameCopyWith(UpdateHasMiddleName value, $Res Function(UpdateHasMiddleName) _then) = _$UpdateHasMiddleNameCopyWithImpl;
-@useResult
-$Res call({
- bool value
-});
-
-
-
-
-}
-/// @nodoc
-class _$UpdateHasMiddleNameCopyWithImpl<$Res>
-    implements $UpdateHasMiddleNameCopyWith<$Res> {
-  _$UpdateHasMiddleNameCopyWithImpl(this._self, this._then);
-
-  final UpdateHasMiddleName _self;
-  final $Res Function(UpdateHasMiddleName) _then;
-
-/// Create a copy of SignupEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? value = null,}) {
-  return _then(UpdateHasMiddleName(
 null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as bool,
   ));

@@ -80,20 +80,15 @@ class SignupService {
     }
 
     return SignupModel.data(
+      name: getString(SignupKeys.name) ?? '',
       email: getString(SignupKeys.email) ?? '',
       phone: getString(SignupKeys.phone) ?? '',
-      fname: getString(SignupKeys.fname) ?? '',
-      mname: getString(SignupKeys.mname) ?? '',
-      lname: getString(SignupKeys.lname) ?? '',
-      fullname: [
-        getString(SignupKeys.fname),
-        getString(SignupKeys.mname),
-        getString(SignupKeys.lname),
-      ].where((e) => e != null && e.isNotEmpty).join(' '),
+      address: getString(SignupKeys.address) ?? '',
+      bloodGroup: getString(SignupKeys.bloodGroup) ?? '',
+      emergencyNote: getString(SignupKeys.emergencyNote) ?? '',
       dob: getSignupDob(),
       gender: getGender()?.name ?? '',
       usePhoneNumber: getBool(SignupKeys.usePhoneNumber) ?? false,
-      hasMiddleName: getBool(SignupKeys.hasMiddleName) ?? false,
     );
   }
 }

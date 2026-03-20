@@ -22,7 +22,7 @@ SignupModel _$SignupModelFromJson(
 /// @nodoc
 mixin _$SignupModel {
 
- String? get email; String? get phone; String? get fname; String? get mname; String? get lname; String? get fullname; String? get gender; DateTime? get dob; bool? get usePhoneNumber; bool? get hasMiddleName;
+ String? get name; String? get email; String? get phone; String? get address; String? get bloodGroup; String? get emergencyNote; String? get gender; DateTime? get dob; bool? get usePhoneNumber;
 /// Create a copy of SignupModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -35,16 +35,16 @@ $SignupModelCopyWith<SignupModel> get copyWith => _$SignupModelCopyWithImpl<Sign
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignupModel&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.fname, fname) || other.fname == fname)&&(identical(other.mname, mname) || other.mname == mname)&&(identical(other.lname, lname) || other.lname == lname)&&(identical(other.fullname, fullname) || other.fullname == fullname)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.usePhoneNumber, usePhoneNumber) || other.usePhoneNumber == usePhoneNumber)&&(identical(other.hasMiddleName, hasMiddleName) || other.hasMiddleName == hasMiddleName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignupModel&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&(identical(other.bloodGroup, bloodGroup) || other.bloodGroup == bloodGroup)&&(identical(other.emergencyNote, emergencyNote) || other.emergencyNote == emergencyNote)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.usePhoneNumber, usePhoneNumber) || other.usePhoneNumber == usePhoneNumber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,phone,fname,mname,lname,fullname,gender,dob,usePhoneNumber,hasMiddleName);
+int get hashCode => Object.hash(runtimeType,name,email,phone,address,bloodGroup,emergencyNote,gender,dob,usePhoneNumber);
 
 @override
 String toString() {
-  return 'SignupModel(email: $email, phone: $phone, fname: $fname, mname: $mname, lname: $lname, fullname: $fullname, gender: $gender, dob: $dob, usePhoneNumber: $usePhoneNumber, hasMiddleName: $hasMiddleName)';
+  return 'SignupModel(name: $name, email: $email, phone: $phone, address: $address, bloodGroup: $bloodGroup, emergencyNote: $emergencyNote, gender: $gender, dob: $dob, usePhoneNumber: $usePhoneNumber)';
 }
 
 
@@ -55,7 +55,7 @@ abstract mixin class $SignupModelCopyWith<$Res>  {
   factory $SignupModelCopyWith(SignupModel value, $Res Function(SignupModel) _then) = _$SignupModelCopyWithImpl;
 @useResult
 $Res call({
- String? email, String? phone, String? fname, String? mname, String? lname, String? fullname, String? gender, DateTime? dob, bool? usePhoneNumber, bool? hasMiddleName
+ String? name, String? email, String? phone, String? address, String? bloodGroup, String? emergencyNote, String? gender, DateTime? dob, bool? usePhoneNumber
 });
 
 
@@ -72,18 +72,17 @@ class _$SignupModelCopyWithImpl<$Res>
 
 /// Create a copy of SignupModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? email = freezed,Object? phone = freezed,Object? fname = freezed,Object? mname = freezed,Object? lname = freezed,Object? fullname = freezed,Object? gender = freezed,Object? dob = freezed,Object? usePhoneNumber = freezed,Object? hasMiddleName = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? email = freezed,Object? phone = freezed,Object? address = freezed,Object? bloodGroup = freezed,Object? emergencyNote = freezed,Object? gender = freezed,Object? dob = freezed,Object? usePhoneNumber = freezed,}) {
   return _then(_self.copyWith(
-email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
-as String?,fname: freezed == fname ? _self.fname : fname // ignore: cast_nullable_to_non_nullable
-as String?,mname: freezed == mname ? _self.mname : mname // ignore: cast_nullable_to_non_nullable
-as String?,lname: freezed == lname ? _self.lname : lname // ignore: cast_nullable_to_non_nullable
-as String?,fullname: freezed == fullname ? _self.fullname : fullname // ignore: cast_nullable_to_non_nullable
+as String?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as String?,bloodGroup: freezed == bloodGroup ? _self.bloodGroup : bloodGroup // ignore: cast_nullable_to_non_nullable
+as String?,emergencyNote: freezed == emergencyNote ? _self.emergencyNote : emergencyNote // ignore: cast_nullable_to_non_nullable
 as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String?,dob: freezed == dob ? _self.dob : dob // ignore: cast_nullable_to_non_nullable
 as DateTime?,usePhoneNumber: freezed == usePhoneNumber ? _self.usePhoneNumber : usePhoneNumber // ignore: cast_nullable_to_non_nullable
-as bool?,hasMiddleName: freezed == hasMiddleName ? _self.hasMiddleName : hasMiddleName // ignore: cast_nullable_to_non_nullable
 as bool?,
   ));
 }
@@ -169,10 +168,10 @@ return data(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String? email,  String? phone,  String? fname,  String? mname,  String? lname,  String? fullname,  String? gender,  DateTime? dob,  bool? usePhoneNumber,  bool? hasMiddleName)?  data,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String? name,  String? email,  String? phone,  String? address,  String? bloodGroup,  String? emergencyNote,  String? gender,  DateTime? dob,  bool? usePhoneNumber)?  data,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SignupModelData() when data != null:
-return data(_that.email,_that.phone,_that.fname,_that.mname,_that.lname,_that.fullname,_that.gender,_that.dob,_that.usePhoneNumber,_that.hasMiddleName);case _:
+return data(_that.name,_that.email,_that.phone,_that.address,_that.bloodGroup,_that.emergencyNote,_that.gender,_that.dob,_that.usePhoneNumber);case _:
   return orElse();
 
 }
@@ -190,10 +189,10 @@ return data(_that.email,_that.phone,_that.fname,_that.mname,_that.lname,_that.fu
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String? email,  String? phone,  String? fname,  String? mname,  String? lname,  String? fullname,  String? gender,  DateTime? dob,  bool? usePhoneNumber,  bool? hasMiddleName)  data,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String? name,  String? email,  String? phone,  String? address,  String? bloodGroup,  String? emergencyNote,  String? gender,  DateTime? dob,  bool? usePhoneNumber)  data,}) {final _that = this;
 switch (_that) {
 case SignupModelData():
-return data(_that.email,_that.phone,_that.fname,_that.mname,_that.lname,_that.fullname,_that.gender,_that.dob,_that.usePhoneNumber,_that.hasMiddleName);case _:
+return data(_that.name,_that.email,_that.phone,_that.address,_that.bloodGroup,_that.emergencyNote,_that.gender,_that.dob,_that.usePhoneNumber);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -210,10 +209,10 @@ return data(_that.email,_that.phone,_that.fname,_that.mname,_that.lname,_that.fu
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String? email,  String? phone,  String? fname,  String? mname,  String? lname,  String? fullname,  String? gender,  DateTime? dob,  bool? usePhoneNumber,  bool? hasMiddleName)?  data,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String? name,  String? email,  String? phone,  String? address,  String? bloodGroup,  String? emergencyNote,  String? gender,  DateTime? dob,  bool? usePhoneNumber)?  data,}) {final _that = this;
 switch (_that) {
 case SignupModelData() when data != null:
-return data(_that.email,_that.phone,_that.fname,_that.mname,_that.lname,_that.fullname,_that.gender,_that.dob,_that.usePhoneNumber,_that.hasMiddleName);case _:
+return data(_that.name,_that.email,_that.phone,_that.address,_that.bloodGroup,_that.emergencyNote,_that.gender,_that.dob,_that.usePhoneNumber);case _:
   return null;
 
 }
@@ -225,19 +224,18 @@ return data(_that.email,_that.phone,_that.fname,_that.mname,_that.lname,_that.fu
 @JsonSerializable()
 
 class SignupModelData implements SignupModel {
-  const SignupModelData({this.email, this.phone, this.fname, this.mname, this.lname, this.fullname, this.gender, this.dob, this.usePhoneNumber, this.hasMiddleName});
+  const SignupModelData({this.name, this.email, this.phone, this.address, this.bloodGroup, this.emergencyNote, this.gender, this.dob, this.usePhoneNumber});
   factory SignupModelData.fromJson(Map<String, dynamic> json) => _$SignupModelDataFromJson(json);
 
+@override final  String? name;
 @override final  String? email;
 @override final  String? phone;
-@override final  String? fname;
-@override final  String? mname;
-@override final  String? lname;
-@override final  String? fullname;
+@override final  String? address;
+@override final  String? bloodGroup;
+@override final  String? emergencyNote;
 @override final  String? gender;
 @override final  DateTime? dob;
 @override final  bool? usePhoneNumber;
-@override final  bool? hasMiddleName;
 
 /// Create a copy of SignupModel
 /// with the given fields replaced by the non-null parameter values.
@@ -252,16 +250,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignupModelData&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.fname, fname) || other.fname == fname)&&(identical(other.mname, mname) || other.mname == mname)&&(identical(other.lname, lname) || other.lname == lname)&&(identical(other.fullname, fullname) || other.fullname == fullname)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.usePhoneNumber, usePhoneNumber) || other.usePhoneNumber == usePhoneNumber)&&(identical(other.hasMiddleName, hasMiddleName) || other.hasMiddleName == hasMiddleName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignupModelData&&(identical(other.name, name) || other.name == name)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.address, address) || other.address == address)&&(identical(other.bloodGroup, bloodGroup) || other.bloodGroup == bloodGroup)&&(identical(other.emergencyNote, emergencyNote) || other.emergencyNote == emergencyNote)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.dob, dob) || other.dob == dob)&&(identical(other.usePhoneNumber, usePhoneNumber) || other.usePhoneNumber == usePhoneNumber));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,email,phone,fname,mname,lname,fullname,gender,dob,usePhoneNumber,hasMiddleName);
+int get hashCode => Object.hash(runtimeType,name,email,phone,address,bloodGroup,emergencyNote,gender,dob,usePhoneNumber);
 
 @override
 String toString() {
-  return 'SignupModel.data(email: $email, phone: $phone, fname: $fname, mname: $mname, lname: $lname, fullname: $fullname, gender: $gender, dob: $dob, usePhoneNumber: $usePhoneNumber, hasMiddleName: $hasMiddleName)';
+  return 'SignupModel.data(name: $name, email: $email, phone: $phone, address: $address, bloodGroup: $bloodGroup, emergencyNote: $emergencyNote, gender: $gender, dob: $dob, usePhoneNumber: $usePhoneNumber)';
 }
 
 
@@ -272,7 +270,7 @@ abstract mixin class $SignupModelDataCopyWith<$Res> implements $SignupModelCopyW
   factory $SignupModelDataCopyWith(SignupModelData value, $Res Function(SignupModelData) _then) = _$SignupModelDataCopyWithImpl;
 @override @useResult
 $Res call({
- String? email, String? phone, String? fname, String? mname, String? lname, String? fullname, String? gender, DateTime? dob, bool? usePhoneNumber, bool? hasMiddleName
+ String? name, String? email, String? phone, String? address, String? bloodGroup, String? emergencyNote, String? gender, DateTime? dob, bool? usePhoneNumber
 });
 
 
@@ -289,18 +287,17 @@ class _$SignupModelDataCopyWithImpl<$Res>
 
 /// Create a copy of SignupModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = freezed,Object? phone = freezed,Object? fname = freezed,Object? mname = freezed,Object? lname = freezed,Object? fullname = freezed,Object? gender = freezed,Object? dob = freezed,Object? usePhoneNumber = freezed,Object? hasMiddleName = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? email = freezed,Object? phone = freezed,Object? address = freezed,Object? bloodGroup = freezed,Object? emergencyNote = freezed,Object? gender = freezed,Object? dob = freezed,Object? usePhoneNumber = freezed,}) {
   return _then(SignupModelData(
-email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
-as String?,fname: freezed == fname ? _self.fname : fname // ignore: cast_nullable_to_non_nullable
-as String?,mname: freezed == mname ? _self.mname : mname // ignore: cast_nullable_to_non_nullable
-as String?,lname: freezed == lname ? _self.lname : lname // ignore: cast_nullable_to_non_nullable
-as String?,fullname: freezed == fullname ? _self.fullname : fullname // ignore: cast_nullable_to_non_nullable
+as String?,address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as String?,bloodGroup: freezed == bloodGroup ? _self.bloodGroup : bloodGroup // ignore: cast_nullable_to_non_nullable
+as String?,emergencyNote: freezed == emergencyNote ? _self.emergencyNote : emergencyNote // ignore: cast_nullable_to_non_nullable
 as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
 as String?,dob: freezed == dob ? _self.dob : dob // ignore: cast_nullable_to_non_nullable
 as DateTime?,usePhoneNumber: freezed == usePhoneNumber ? _self.usePhoneNumber : usePhoneNumber // ignore: cast_nullable_to_non_nullable
-as bool?,hasMiddleName: freezed == hasMiddleName ? _self.hasMiddleName : hasMiddleName // ignore: cast_nullable_to_non_nullable
 as bool?,
   ));
 }

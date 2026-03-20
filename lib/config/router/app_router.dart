@@ -5,11 +5,8 @@ import 'package:pasa/core/top_level/di.dart';
 import 'package:pasa/core/urls/app_link_urls.dart';
 import 'package:pasa/feature/auth/bloc/auth_bloc/auth_bloc.dart';
 import 'package:pasa/feature/auth/screens/signin/signin_verification.dart';
-import 'package:pasa/feature/auth/screens/signup/profile_completion.dart';
-import 'package:pasa/feature/auth/screens/signup/signup_completion.dart';
 import 'package:pasa/feature/auth/screens/signup/signup_form.dart';
 import 'package:pasa/feature/auth/screens/signup/signup_password.dart';
-import 'package:pasa/feature/auth/screens/signup/singup_verification.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:pasa/feature/maps/map_screen.dart';
@@ -183,14 +180,28 @@ GoRouter appRouter(AuthBloc authBloc) {
       final path = state.matchedLocation;
       final bool onLoginPath = loginPaths.contains(path);
       final bool onAuthReqPath = authReqPaths.contains(path);
-      if (session == null && onAuthReqPath) {
-        return AppRoutes.signIn.path;
+
+      if (session == null) {
+        if (onAuthReqPath) {
+          return AppRoutes.signIn.path;
+        }
+        return null;
       }
 
-      if (session != null) {
-        if (onLoginPath) {
-          return AppRoutes.home.path;
+      // Check if profile exists
+      final hasProfile = await sessionService.hasProfile(session.user.id);
+
+      if (!hasProfile) {
+        // Allow staying on auth paths while profile is being created
+        if (onAuthReqPath) {
+          return AppRoutes.signUp.path;
         }
+        return null;
+      }
+
+      // Session and Profile exist
+      if (onLoginPath) {
+        return AppRoutes.home.path;
       }
 
       return null;

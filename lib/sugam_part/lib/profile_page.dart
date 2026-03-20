@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:pasa/core/components/buttons/app_button.dart';
 import 'package:pasa/core/components/messengers/dialog_box.dart';
+import 'package:pasa/core/components/selectors/date_selector.dart';
 import 'package:pasa/core/top_level/di.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -20,6 +21,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Map<String, dynamic>? userProfile;
   bool isLoading = true;
   bool isEditing = false;
+
+  DateTime? _selectedDob;
+  String? _selectedGender;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -46,11 +50,20 @@ class _ProfilePageState extends State<ProfilePage> {
     super.dispose();
   }
 
+  int? _calculateAge(DateTime birthDate) {
+    DateTime today = DateTime.now();
+    int age = today.year - birthDate.year;
+    if (today.month < birthDate.month ||
+        (today.month == birthDate.month && today.day < birthDate.day)) {
+      age--;
+    }
+    return age;
+  }
+
   // Load user profile from Supabase
   Future<void> _loadProfile() async {
     setState(() => isLoading = true);
     try {
-      // Assuming user_id = 1 for demo (replace with actual auth user ID)
       final user = supabase.auth.currentUser;
       if (user == null) {
         _showSnackBar("No authenticated user found", Colors.red);
@@ -70,7 +83,6 @@ class _ProfilePageState extends State<ProfilePage> {
       });
     } catch (e) {
       print("Error loading profile: $e");
-      // Profile doesn't exist, create new one
       setState(() {
         userProfile = null;
         isLoading = false;
@@ -86,6 +98,12 @@ class _ProfilePageState extends State<ProfilePage> {
       _addressController.text = userProfile!['address'] ?? '';
       _bloodGroupController.text = userProfile!['blood_group'] ?? '';
       _emergencyNoteController.text = userProfile!['emergency_note'] ?? '';
+
+      final dobStr = userProfile!['dob'];
+      if (dobStr != null) {
+        _selectedDob = DateTime.tryParse(dobStr);
+      }
+      _selectedGender = userProfile!['gender'];
     }
   }
 
@@ -100,20 +118,20 @@ class _ProfilePageState extends State<ProfilePage> {
         'address': _addressController.text,
         'blood_group': _bloodGroupController.text,
         'emergency_note': _emergencyNoteController.text,
+        'dob': _selectedDob?.toIso8601String(),
+        'gender': _selectedGender,
       };
 
       if (userProfile == null) {
-        // Insert new profile
         await supabase.from('user_profile').insert(data);
       } else {
-        // Update existing profile
         await supabase
             .from('user_profile')
             .update(data)
             .eq('user_id', supabase.auth.currentUser!.id);
       }
 
-      _loadProfile();
+      await _loadProfile();
       setState(() => isEditing = false);
       _showSnackBar("Profile saved successfully", Colors.green);
     } catch (e) {
@@ -141,10 +159,11 @@ class _ProfilePageState extends State<ProfilePage> {
     required String label,
     required IconData icon,
     int maxLines = 1,
+    bool? enabled,
   }) {
     return TextField(
       controller: controller,
-      enabled: isEditing,
+      enabled: enabled ?? isEditing,
       maxLines: maxLines,
       style: TextStyle(
         color: isEditing ? Colors.white : Colors.grey[400],
@@ -268,7 +287,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 12),
 
                   // Profile Form
                   _buildTextField(
@@ -294,6 +313,80 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
 
                   const SizedBox(height: 16),
+
+                  // Age (Read-only)
+                  _buildTextField(
+                    controller: TextEditingController(
+                      text: _selectedDob != null
+                          ? _calculateAge(_selectedDob!).toString()
+                          : "--",
+                    ),
+                    label: "Age",
+                    icon: Icons.calendar_today_outlined,
+                    enabled: false,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Date of Birth
+                  DateSelector(
+                    label: "Date of Birth",
+                    selectedDate: _selectedDob,
+                    enabled: isEditing,
+                    onDateSelected: (date) {
+                      setState(() {
+                        _selectedDob = date;
+                      });
+                    },
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Gender Selection (Styled like other fields)
+                  DropdownButtonFormField<String>(
+                    value: _selectedGender,
+                    dropdownColor: Colors.grey[900],
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    decoration: InputDecoration(
+                      labelText: "Gender",
+                      labelStyle: TextStyle(
+                        color: isEditing ? Colors.grey[400] : Colors.grey[600],
+                      ),
+                      prefixIcon: Icon(
+                        Icons.person_outline,
+                        color: isEditing ? Colors.green : Colors.grey[600],
+                      ),
+                      filled: true,
+                      fillColor: isEditing ? Colors.grey[850] : Colors.grey[900],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.green, width: 2),
+                      ),
+                    ),
+                    items: [
+                      {'value': 'male', 'label': 'Male'},
+                      {'value': 'female', 'label': 'Female'},
+                      {'value': 'ratherNotSay', 'label': 'Other'},
+                    ]
+                        .map((g) => DropdownMenuItem(
+                              value: g['value'],
+                              child: Text(g['label']!),
+                            ))
+                        .toList(),
+                    onChanged: isEditing
+                        ? (val) => setState(() => _selectedGender = val)
+                        : null,
+                  ),
+
+                  const SizedBox(height: 16),
+
 
                   _buildTextField(
                     controller: _addressController,
@@ -464,6 +557,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
     );
   }
+
 
   Widget _buildStatCard({
     required IconData icon,

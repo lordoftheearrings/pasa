@@ -27,15 +27,30 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _phonecontroller = TextEditingController();
   final TextEditingController _namecontroller = TextEditingController();
-  final TextEditingController _bldgrpcontroller = TextEditingController();
-  final TextEditingController _medicalinfocontroller = TextEditingController();
+  final TextEditingController _addresscontroller = TextEditingController();
+  final TextEditingController _emergencyNoteController =
+      TextEditingController();
+
   final GlobalKey<FormState> _signupFormKey = GlobalKey<FormState>();
   DateTime? date;
   Gender? selectedGender;
   String? _selectedBloodGroup;
+
   @override
   void initState() {
     super.initState();
+    final state = context.read<SignupBloc>().state;
+    final signupData = state.signupData;
+    _emailcontroller.text = signupData.email ?? '';
+    _phonecontroller.text = signupData.phone ?? '';
+    _namecontroller.text = signupData.name ?? '';
+    _addresscontroller.text = signupData.address ?? '';
+    _emergencyNoteController.text = signupData.emergencyNote ?? '';
+    date = signupData.dob;
+    selectedGender = signupData.gender != null
+        ? Gender.values.firstWhere((g) => g.name == signupData.gender)
+        : null;
+    _selectedBloodGroup = signupData.bloodGroup;
   }
 
   @override
@@ -43,6 +58,8 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
     _emailcontroller.dispose();
     _phonecontroller.dispose();
     _namecontroller.dispose();
+    _addresscontroller.dispose();
+    _emergencyNoteController.dispose();
     super.dispose();
   }
 
@@ -50,7 +67,8 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
     final signupData = context.read<SignupBloc>().state.signupData;
     final hasData =
         (signupData.phone?.isNotEmpty ?? false) ||
-        (signupData.email?.isNotEmpty ?? false);
+        (signupData.email?.isNotEmpty ?? false) ||
+        (signupData.name?.isNotEmpty ?? false);
 
     if (!hasData) {
       context.pop();
@@ -144,6 +162,19 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
                         ),
                         const SizedBox(height: 16.0),
                         AppText(
+                          label: 'Address',
+                          style: AppTextStyles.heading3,
+                          textAlign: TextAlign.start,
+                        ),
+                        const SizedBox(height: 16.0),
+                        InputField(
+                          labelText: "Address",
+                          controller: _addresscontroller,
+                          validator: (value) =>
+                              AuthHelper.notNullValidation(value),
+                        ),
+                        const SizedBox(height: 16.0),
+                        AppText(
                           label: 'Date of Birth',
                           style: AppTextStyles.heading3,
                           textAlign: TextAlign.start,
@@ -193,6 +224,7 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
                               vertical: 16,
                             ),
                           ),
+                          dropdownColor: AppColors.black,
                           value: _selectedBloodGroup,
                           items:
                               ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
@@ -206,7 +238,6 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
                           onChanged: (value) {
                             setState(() {
                               _selectedBloodGroup = value!;
-                              _bldgrpcontroller.text = value;
                             });
                           },
                           validator: (value) => value == null || value.isEmpty
@@ -215,14 +246,14 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
                         ),
                         const SizedBox(height: 16.0),
                         AppText(
-                          label: 'Medical Information',
+                          label: 'Emergency Note',
                           style: AppTextStyles.heading3,
                           textAlign: TextAlign.start,
                         ),
                         const SizedBox(height: 16.0),
                         InputField(
                           labelText: "Max 50 Characters",
-                          controller: _medicalinfocontroller,
+                          controller: _emergencyNoteController,
                           validator: (value) =>
                               AuthHelper.validateMedicalInfo(value),
                         ),
@@ -242,6 +273,30 @@ class _SignupFormScreenState extends State<SignupFormScreen> {
                 label: 'Next',
                 onPressed: () {
                   if (_signupFormKey.currentState!.validate()) {
+                    final bloc = context.read<SignupBloc>();
+                    bloc.add(SignupEvent.updateEmail(_emailcontroller.text));
+                    bloc.add(SignupEvent.updatePhone(_phonecontroller.text));
+                    bloc.add(SignupEvent.updateName(_namecontroller.text));
+                    bloc.add(
+                      SignupEvent.updateAddress(_addresscontroller.text),
+                    );
+                    if (date != null) {
+                      bloc.add(SignupEvent.updateDob(date));
+                    }
+                    if (selectedGender != null) {
+                      bloc.add(SignupEvent.updateGender(selectedGender));
+                    }
+                    if (_selectedBloodGroup != null) {
+                      bloc.add(
+                        SignupEvent.updateBloodGroup(_selectedBloodGroup!),
+                      );
+                    }
+                    bloc.add(
+                      SignupEvent.updateEmergencyNote(
+                        _emergencyNoteController.text,
+                      ),
+                    );
+
                     context.pushNamed(AppRoutes.signUpPw.name);
                   }
                 },

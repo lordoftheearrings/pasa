@@ -9,7 +9,7 @@ abstract class UserModel with _$UserModel {
     required String id,
     required String email,
     String? phone,
-    String? fullname,
+    String? name,
     String? gender,
     DateTime? dob,
   }) = UserData;

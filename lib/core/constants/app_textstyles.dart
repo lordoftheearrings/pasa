@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pasa/core/constants/app_colors.dart';
-import 'package:pasa/core/constants/app_fonts.dart';
 
 class AppTextStyles {
-  static const String _baseFont = AppFonts.primary;
 
   static const double sizeHeading1 = 32;
   static const double sizeHeading2 = 24;

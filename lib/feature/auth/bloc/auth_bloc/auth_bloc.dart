@@ -27,6 +27,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEventResendEmailConfirmationSignIn>(
       _onResendEmailConfirmationSignIn,
     );
+
+    _authSub = sessionService.sessionStream.listen((session) {
+      if (session != null) {
+        final pendingData = signupService.getPendingSignupData();
+        if (pendingData != null && !signupService.wasSignupJustCompleted()) {
+          add(AuthEvent.completeSignup(session: session));
+        }
+      }
+    });
   }
   @override
   Future<void> close() {
@@ -67,6 +76,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(const AuthState.error("Invalid signup response"));
         return;
       }
+
+      // If session exists immediately (e.g. auto-confirm is on)
+      // the listener in constructor will trigger completeSignup. 
+      
       emit(AuthState.verificationNeeded(user));
     } on SupabaseAuthException catch (e) {
       emit(AuthState.error(e.message));
