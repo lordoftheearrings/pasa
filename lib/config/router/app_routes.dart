@@ -10,6 +10,8 @@ enum AppRoutes {
   home,
   safety,
   rides,
+  forgotPassword,
+  forgotPasswordVerification,
   maps;
 
   String get path {
@@ -30,6 +32,10 @@ enum AppRoutes {
         return '/sign-up-completion';
       case AppRoutes.profileCompletion:
         return '/profile-completion';
+      case AppRoutes.forgotPassword:
+        return '/forgot-password';
+      case AppRoutes.forgotPasswordVerification:
+        return '/forgot-password-verification';
       case AppRoutes.home:
         return '/';
       case AppRoutes.safety:

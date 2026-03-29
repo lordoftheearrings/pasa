@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:pasa/core/components/navbar/bottom_navbar.dart';
+import 'package:pasa/core/services/crash_service.dart';
 import 'package:pasa/core/services/user_session_service.dart';
 import 'package:pasa/core/top_level/di.dart';
 import 'package:pasa/core/urls/app_link_urls.dart';
 import 'package:pasa/feature/auth/bloc/auth_bloc/auth_bloc.dart';
 import 'package:pasa/feature/auth/screens/signin/signin_verification.dart';
+import 'package:pasa/feature/auth/screens/signup/signup_completion.dart';
 import 'package:pasa/feature/auth/screens/signup/signup_form.dart';
 import 'package:pasa/feature/auth/screens/signup/signup_password.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +64,7 @@ final loginPaths = [
   AppRoutes.profileCompletion.path,
   '/${AppLinkUrls.verifyUser}',
   '/${AppLinkUrls.verifyUserbutHasNoProfile}',
+  '/${AppLinkUrls.resetPassword}',
 ];
 final authReqPaths = [
   AppRoutes.home.path,
@@ -103,6 +106,20 @@ GoRouter appRouter(AuthBloc authBloc) {
         name: AppRoutes.signUpPw.name,
         path: AppRoutes.signUpPw.path,
         builder: (_, _) => SignupSetPasswordScreen(),
+      ),
+      GoRoute(
+        path: '/${AppLinkUrls.resetPassword}',
+        builder: (_, state) => SignupCompletionScreen(uri: state.uri),
+      ),
+      GoRoute(
+        name: AppRoutes.forgotPassword.name,
+        path: AppRoutes.forgotPassword.path,
+        builder: (_, _) => ForgotPasswordScreen(),
+      ),
+      GoRoute(
+        name: AppRoutes.forgotPasswordVerification.name,
+        path: AppRoutes.forgotPasswordVerification.path,
+        builder: (_, _) => ForgotPasswordVerification(),
       ),
       // GoRoute(
       //   name: AppRoutes.signUpVerification.name,
@@ -148,6 +165,7 @@ GoRouter appRouter(AuthBloc authBloc) {
               GoRoute(
                 name: AppRoutes.safety.name,
                 path: AppRoutes.safety.path,
+                // builder: (_, _) => CrashOverlay(crashService: CrashService()),
                 builder: (_, _) => DetailsPage(bleController: bleController),
               ),
             ],

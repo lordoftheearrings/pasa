@@ -6,6 +6,8 @@ import 'ble_controller.dart';
 
 class DetailsPage extends StatefulWidget {
   final BleController bleController;
+  static final GlobalKey<_DetailsPageState> detailsKey =
+      GlobalKey<_DetailsPageState>();
 
   const DetailsPage({super.key, required this.bleController});
 
@@ -22,11 +24,12 @@ class _DetailsPageState extends State<DetailsPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _relationController = TextEditingController();
-
+  
   @override
   void initState() {
     super.initState();
     _loadContacts();
+    _syncEmergencyPhonesToBle();
 
     // widget.bleController.onDataReceived = (_) {
     //   if (!mounted) return;
@@ -49,6 +52,10 @@ class _DetailsPageState extends State<DetailsPage> {
     super.dispose();
   }
 
+  Future<void> loadContactsAndSyncToBle() async {
+    await _loadContacts();
+  }
+
   Future<void> _loadContacts() async {
     if (!mounted) return;
 
@@ -60,10 +67,20 @@ class _DetailsPageState extends State<DetailsPage> {
           .eq('user_id', supabase.auth.currentUser!.id)
           .order('created_at', ascending: false);
 
+      final loadedContacts = List<Map<String, dynamic>>.from(response);
+      await _syncEmergencyPhonesToBle();
+      await widget.bleController.setEmergencyPhones(
+        loadedContacts
+            .map((contact) => (contact['phone'] ?? '').toString().trim())
+            .where((phone) => phone.isNotEmpty)
+            .take(3)
+            .toList(),
+      );
+
       if (!mounted) return;
 
       setState(() {
-        emergencyContacts = List<Map<String, dynamic>>.from(response);
+        emergencyContacts = loadedContacts;
         isLoading = false;
       });
     } catch (e) {
@@ -72,6 +89,16 @@ class _DetailsPageState extends State<DetailsPage> {
       setState(() => isLoading = false);
       _showSnackBar("Failed to load contacts", Colors.red);
     }
+  }
+
+  Future<void> _syncEmergencyPhonesToBle() async {
+    final phones = emergencyContacts
+        .map((contact) => (contact['phone'] ?? '').toString().trim())
+        .where((phone) => phone.isNotEmpty)
+        .take(3)
+        .toList();
+
+    await widget.bleController.setEmergencyPhones(phones);
   }
 
   Future<void> _addContact() async {
@@ -97,7 +124,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
       // Load contacts only if mounted
       await _loadContacts();
-
+      await _syncEmergencyPhonesToBle();
       if (!mounted) return; // <-- always check
 
       // Pop dialog safely
@@ -116,7 +143,8 @@ class _DetailsPageState extends State<DetailsPage> {
   Future<void> _deleteContact(String id) async {
     try {
       await supabase.from('emergency_contacts').delete().eq('id', id);
-      _loadContacts();
+      await _loadContacts();
+      await _syncEmergencyPhonesToBle();
       _showSnackBar("Contact deleted", Colors.green);
     } catch (e) {
       print("Error deleting contact: $e");

@@ -61,8 +61,6 @@ class _BleScreenState extends State<BleScreen> with TickerProviderStateMixin {
       setState(() {
         alcoholLevel = widget.bleController.alcohol;
         helmetWorn = widget.bleController.helmetWorn;
-        heartRate = widget.bleController.heartRate;
-        spO2 = widget.bleController.spO2;
       });
     };
 
@@ -101,8 +99,6 @@ class _BleScreenState extends State<BleScreen> with TickerProviderStateMixin {
       // Update sensor data
       alcoholLevel = widget.bleController.alcohol;
       helmetWorn = widget.bleController.helmetWorn;
-      heartRate = widget.bleController.heartRate;
-      spO2 = widget.bleController.spO2;
     });
   }
 

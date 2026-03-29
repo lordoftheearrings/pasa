@@ -5,10 +5,13 @@ import 'package:pasa/core/components/buttons/app_button.dart';
 import 'package:pasa/core/components/messengers/dialog_box.dart';
 import 'package:pasa/core/components/selectors/date_selector.dart';
 import 'package:pasa/core/top_level/di.dart';
+import 'package:pasa/sugam_part/lib/ble_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+  static final GlobalKey<_ProfilePageState> profileKey =
+      GlobalKey<_ProfilePageState>();
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -60,6 +63,10 @@ class _ProfilePageState extends State<ProfilePage> {
     return age;
   }
 
+  Future<void> loadProfileAndSendToBle() async {
+    await _loadProfile();
+  }
+
   // Load user profile from Supabase
   Future<void> _loadProfile() async {
     setState(() => isLoading = true);
@@ -81,6 +88,21 @@ class _ProfilePageState extends State<ProfilePage> {
         _populateControllers();
         isLoading = false;
       });
+
+      final dobStr = userProfile?['dob']?.toString();
+      DateTime? dob = dobStr != null ? DateTime.tryParse(dobStr) : null;
+      int age = dob != null ? _calculateAge(dob)! : 0;
+
+      // Map blood group string to ESP int code
+      final String bgString = userProfile?['blood_group']?.toString() ?? '';
+      final int bgCode = bloodGroupCodes[bgString] ?? 0;
+
+      await getIt<BleController>().setUserProfile(
+        name: userProfile?['name']?.toString() ?? '',
+        age: age,
+        bloodGroup: bgCode, // send the int code now
+        medicalInfo: userProfile?['emergency_note']?.toString() ?? '',
+      );
     } catch (e) {
       print("Error loading profile: $e");
       setState(() {
@@ -90,6 +112,17 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  // Map blood group string -> ESP code
+  static const Map<String, int> bloodGroupCodes = {
+    "A+": 1,
+    "A-": 2,
+    "B+": 3,
+    "B-": 4,
+    "AB+": 5,
+    "AB-": 6,
+    "O+": 7,
+    "O-": 8,
+  };
   void _populateControllers() {
     if (userProfile != null) {
       _nameController.text = userProfile!['name'] ?? '';
@@ -360,33 +393,40 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: isEditing ? Colors.green : Colors.grey[600],
                       ),
                       filled: true,
-                      fillColor: isEditing ? Colors.grey[850] : Colors.grey[900],
+                      fillColor: isEditing
+                          ? Colors.grey[850]
+                          : Colors.grey[900],
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide.none,
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.green, width: 2),
+                        borderSide: const BorderSide(
+                          color: Colors.green,
+                          width: 2,
+                        ),
                       ),
                     ),
-                    items: [
-                      {'value': 'male', 'label': 'Male'},
-                      {'value': 'female', 'label': 'Female'},
-                      {'value': 'ratherNotSay', 'label': 'Other'},
-                    ]
-                        .map((g) => DropdownMenuItem(
-                              value: g['value'],
-                              child: Text(g['label']!),
-                            ))
-                        .toList(),
+                    items:
+                        [
+                              {'value': 'male', 'label': 'Male'},
+                              {'value': 'female', 'label': 'Female'},
+                              {'value': 'ratherNotSay', 'label': 'Other'},
+                            ]
+                            .map(
+                              (g) => DropdownMenuItem(
+                                value: g['value'],
+                                child: Text(g['label']!),
+                              ),
+                            )
+                            .toList(),
                     onChanged: isEditing
                         ? (val) => setState(() => _selectedGender = val)
                         : null,
                   ),
 
                   const SizedBox(height: 16),
-
 
                   _buildTextField(
                     controller: _addressController,
@@ -415,24 +455,24 @@ class _ProfilePageState extends State<ProfilePage> {
                   const SizedBox(height: 32),
 
                   // Stats Cards
-                  Row( //TODO: add stats
-                    children: [
-                      _buildStatCard(
-                        icon: Icons.access_time,
-                        label: "Rides",
-                        value: "--",
-                        color: Colors.blue,
-                      ),
-                      const SizedBox(width: 12),
-                      _buildStatCard(
-                        icon: Icons.route,
-                        label: "Distance",
-                        value: "-- km",
-                        color: Colors.purple,
-                      ),
-                    ],
-                  ),
-
+                  // Row(
+                  //   //TODO: add stats
+                  //   children: [
+                  //     _buildStatCard(
+                  //       icon: Icons.access_time,
+                  //       label: "Rides",
+                  //       value: "--",
+                  //       color: Colors.blue,
+                  //     ),
+                  //     const SizedBox(width: 12),
+                  //     _buildStatCard(
+                  //       icon: Icons.route,
+                  //       label: "Distance",
+                  //       value: "-- km",
+                  //       color: Colors.purple,
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(height: 12),
 
                   // Row(
@@ -558,45 +598,44 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-
-  Widget _buildStatCard({
-    required IconData icon,
-    required String label,
-    required String value,
-    required Color color,
-  }) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withOpacity(0.3), width: 1.5),
-        ),
-        child: Column(
-          children: [
-            Icon(icon, color: color, size: 28),
-            const SizedBox(height: 8),
-            Text(
-              value,
-              style: TextStyle(
-                color: color,
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: Colors.grey[500],
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _buildStatCard({
+  //   required IconData icon,
+  //   required String label,
+  //   required String value,
+  //   required Color color,
+  // }) {
+  //   return Expanded(
+  //     child: Container(
+  //       padding: const EdgeInsets.all(16),
+  //       decoration: BoxDecoration(
+  //         color: Colors.grey[900],
+  //         borderRadius: BorderRadius.circular(16),
+  //         border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+  //       ),
+  //       child: Column(
+  //         children: [
+  //           Icon(icon, color: color, size: 28),
+  //           const SizedBox(height: 8),
+  //           Text(
+  //             value,
+  //             style: TextStyle(
+  //               color: color,
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.w800,
+  //             ),
+  //           ),
+  //           const SizedBox(height: 4),
+  //           Text(
+  //             label,
+  //             style: TextStyle(
+  //               color: Colors.grey[500],
+  //               fontSize: 12,
+  //               fontWeight: FontWeight.w600,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

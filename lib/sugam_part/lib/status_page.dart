@@ -74,8 +74,7 @@ class _StatusPageState extends State<StatusPage> with TickerProviderStateMixin {
     if (!mounted) return;
 
     setState(() {
-      heartRate = widget.bleController.heartRate;
-      spO2 = widget.bleController.spO2;
+
 
       // Update history
       if (heartRate > 0) {
