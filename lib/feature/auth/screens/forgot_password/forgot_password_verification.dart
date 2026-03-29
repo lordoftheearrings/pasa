@@ -30,9 +30,9 @@ class _ForgotPasswordVerificationState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.black,
       appBar: AppBar(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.black,
         forceMaterialTransparency: true,
         leading: IconButton(
           icon: const Icon(Icons.chevron_left, size: 24),

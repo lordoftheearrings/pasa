@@ -8,4 +8,7 @@ abstract class BaseAuthServices {
   Future<void> completeSignup(UserData user, SignupModel signupData);
   Future<void> resendEmailConfirmationLink(String email);
   Future<void> resendEmailConfirmationLinkfromSignIn(String email);
+  Future<void> resetPasswordEmail(String email);
+  Future<void> updatePassword(String password);
+  Future<void> signOut();
 }

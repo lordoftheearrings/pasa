@@ -51,4 +51,19 @@ class AuthRepository extends BaseAuthRepository {
   Future<void> resendEmailConfirmationLinkfromSignIn(String email) async {
     await authService.resendEmailConfirmationLinkfromSignIn(email);
   }
+
+  @override
+  Future<void> resetPasswordEmail(String email) async {
+    await authService.resetPasswordEmail(email);
+  }
+
+  @override
+  Future<void> updatePassword(String password) async {
+    await authService.updatePassword(password);
+  }
+
+  @override
+  Future<void> signOut() async {
+    await authService.signOut();
+  }
 }

@@ -61,7 +61,7 @@ class _SignupCompletionScreenState extends State<SignupCompletionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.black,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

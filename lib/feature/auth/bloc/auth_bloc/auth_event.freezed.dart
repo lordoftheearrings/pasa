@@ -55,7 +55,7 @@ extension AuthEventPatterns on AuthEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthEventSignIn value)?  signIn,TResult Function( AuthEventSignUp value)?  signUp,TResult Function( AuthEventSessionRestored value)?  sessionRestored,TResult Function( AuthEventCompleteSignup value)?  completeSignup,TResult Function( AuthEventResendEmailConfirmation value)?  resendEmailConfirmation,TResult Function( AuthEventResendEmailConfirmationSignIn value)?  resendEmailConfirmationSignIn,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( AuthEventSignIn value)?  signIn,TResult Function( AuthEventSignUp value)?  signUp,TResult Function( AuthEventSessionRestored value)?  sessionRestored,TResult Function( AuthEventCompleteSignup value)?  completeSignup,TResult Function( AuthEventResendEmailConfirmation value)?  resendEmailConfirmation,TResult Function( AuthEventResendEmailConfirmationSignIn value)?  resendEmailConfirmationSignIn,TResult Function( AuthEventResetPasswordEmail value)?  resetPasswordEmail,TResult Function( AuthEventUpdatePassword value)?  updatePassword,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case AuthEventSignIn() when signIn != null:
@@ -64,7 +64,9 @@ return signUp(_that);case AuthEventSessionRestored() when sessionRestored != nul
 return sessionRestored(_that);case AuthEventCompleteSignup() when completeSignup != null:
 return completeSignup(_that);case AuthEventResendEmailConfirmation() when resendEmailConfirmation != null:
 return resendEmailConfirmation(_that);case AuthEventResendEmailConfirmationSignIn() when resendEmailConfirmationSignIn != null:
-return resendEmailConfirmationSignIn(_that);case _:
+return resendEmailConfirmationSignIn(_that);case AuthEventResetPasswordEmail() when resetPasswordEmail != null:
+return resetPasswordEmail(_that);case AuthEventUpdatePassword() when updatePassword != null:
+return updatePassword(_that);case _:
   return orElse();
 
 }
@@ -82,7 +84,7 @@ return resendEmailConfirmationSignIn(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthEventSignIn value)  signIn,required TResult Function( AuthEventSignUp value)  signUp,required TResult Function( AuthEventSessionRestored value)  sessionRestored,required TResult Function( AuthEventCompleteSignup value)  completeSignup,required TResult Function( AuthEventResendEmailConfirmation value)  resendEmailConfirmation,required TResult Function( AuthEventResendEmailConfirmationSignIn value)  resendEmailConfirmationSignIn,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( AuthEventSignIn value)  signIn,required TResult Function( AuthEventSignUp value)  signUp,required TResult Function( AuthEventSessionRestored value)  sessionRestored,required TResult Function( AuthEventCompleteSignup value)  completeSignup,required TResult Function( AuthEventResendEmailConfirmation value)  resendEmailConfirmation,required TResult Function( AuthEventResendEmailConfirmationSignIn value)  resendEmailConfirmationSignIn,required TResult Function( AuthEventResetPasswordEmail value)  resetPasswordEmail,required TResult Function( AuthEventUpdatePassword value)  updatePassword,}){
 final _that = this;
 switch (_that) {
 case AuthEventSignIn():
@@ -91,7 +93,9 @@ return signUp(_that);case AuthEventSessionRestored():
 return sessionRestored(_that);case AuthEventCompleteSignup():
 return completeSignup(_that);case AuthEventResendEmailConfirmation():
 return resendEmailConfirmation(_that);case AuthEventResendEmailConfirmationSignIn():
-return resendEmailConfirmationSignIn(_that);case _:
+return resendEmailConfirmationSignIn(_that);case AuthEventResetPasswordEmail():
+return resetPasswordEmail(_that);case AuthEventUpdatePassword():
+return updatePassword(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -108,7 +112,7 @@ return resendEmailConfirmationSignIn(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthEventSignIn value)?  signIn,TResult? Function( AuthEventSignUp value)?  signUp,TResult? Function( AuthEventSessionRestored value)?  sessionRestored,TResult? Function( AuthEventCompleteSignup value)?  completeSignup,TResult? Function( AuthEventResendEmailConfirmation value)?  resendEmailConfirmation,TResult? Function( AuthEventResendEmailConfirmationSignIn value)?  resendEmailConfirmationSignIn,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( AuthEventSignIn value)?  signIn,TResult? Function( AuthEventSignUp value)?  signUp,TResult? Function( AuthEventSessionRestored value)?  sessionRestored,TResult? Function( AuthEventCompleteSignup value)?  completeSignup,TResult? Function( AuthEventResendEmailConfirmation value)?  resendEmailConfirmation,TResult? Function( AuthEventResendEmailConfirmationSignIn value)?  resendEmailConfirmationSignIn,TResult? Function( AuthEventResetPasswordEmail value)?  resetPasswordEmail,TResult? Function( AuthEventUpdatePassword value)?  updatePassword,}){
 final _that = this;
 switch (_that) {
 case AuthEventSignIn() when signIn != null:
@@ -117,7 +121,9 @@ return signUp(_that);case AuthEventSessionRestored() when sessionRestored != nul
 return sessionRestored(_that);case AuthEventCompleteSignup() when completeSignup != null:
 return completeSignup(_that);case AuthEventResendEmailConfirmation() when resendEmailConfirmation != null:
 return resendEmailConfirmation(_that);case AuthEventResendEmailConfirmationSignIn() when resendEmailConfirmationSignIn != null:
-return resendEmailConfirmationSignIn(_that);case _:
+return resendEmailConfirmationSignIn(_that);case AuthEventResetPasswordEmail() when resetPasswordEmail != null:
+return resetPasswordEmail(_that);case AuthEventUpdatePassword() when updatePassword != null:
+return updatePassword(_that);case _:
   return null;
 
 }
@@ -134,7 +140,7 @@ return resendEmailConfirmationSignIn(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String email,  String password)?  signIn,TResult Function( String password,  SignupModel signupData)?  signUp,TResult Function( Session session)?  sessionRestored,TResult Function( Session session)?  completeSignup,TResult Function( String email)?  resendEmailConfirmation,TResult Function( String email)?  resendEmailConfirmationSignIn,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String email,  String password)?  signIn,TResult Function( String password,  SignupModel signupData)?  signUp,TResult Function( Session session)?  sessionRestored,TResult Function( Session session)?  completeSignup,TResult Function( String email)?  resendEmailConfirmation,TResult Function( String email)?  resendEmailConfirmationSignIn,TResult Function( String email)?  resetPasswordEmail,TResult Function( String password)?  updatePassword,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case AuthEventSignIn() when signIn != null:
 return signIn(_that.email,_that.password);case AuthEventSignUp() when signUp != null:
@@ -142,7 +148,9 @@ return signUp(_that.password,_that.signupData);case AuthEventSessionRestored() w
 return sessionRestored(_that.session);case AuthEventCompleteSignup() when completeSignup != null:
 return completeSignup(_that.session);case AuthEventResendEmailConfirmation() when resendEmailConfirmation != null:
 return resendEmailConfirmation(_that.email);case AuthEventResendEmailConfirmationSignIn() when resendEmailConfirmationSignIn != null:
-return resendEmailConfirmationSignIn(_that.email);case _:
+return resendEmailConfirmationSignIn(_that.email);case AuthEventResetPasswordEmail() when resetPasswordEmail != null:
+return resetPasswordEmail(_that.email);case AuthEventUpdatePassword() when updatePassword != null:
+return updatePassword(_that.password);case _:
   return orElse();
 
 }
@@ -160,7 +168,7 @@ return resendEmailConfirmationSignIn(_that.email);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String email,  String password)  signIn,required TResult Function( String password,  SignupModel signupData)  signUp,required TResult Function( Session session)  sessionRestored,required TResult Function( Session session)  completeSignup,required TResult Function( String email)  resendEmailConfirmation,required TResult Function( String email)  resendEmailConfirmationSignIn,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String email,  String password)  signIn,required TResult Function( String password,  SignupModel signupData)  signUp,required TResult Function( Session session)  sessionRestored,required TResult Function( Session session)  completeSignup,required TResult Function( String email)  resendEmailConfirmation,required TResult Function( String email)  resendEmailConfirmationSignIn,required TResult Function( String email)  resetPasswordEmail,required TResult Function( String password)  updatePassword,}) {final _that = this;
 switch (_that) {
 case AuthEventSignIn():
 return signIn(_that.email,_that.password);case AuthEventSignUp():
@@ -168,7 +176,9 @@ return signUp(_that.password,_that.signupData);case AuthEventSessionRestored():
 return sessionRestored(_that.session);case AuthEventCompleteSignup():
 return completeSignup(_that.session);case AuthEventResendEmailConfirmation():
 return resendEmailConfirmation(_that.email);case AuthEventResendEmailConfirmationSignIn():
-return resendEmailConfirmationSignIn(_that.email);case _:
+return resendEmailConfirmationSignIn(_that.email);case AuthEventResetPasswordEmail():
+return resetPasswordEmail(_that.email);case AuthEventUpdatePassword():
+return updatePassword(_that.password);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -185,7 +195,7 @@ return resendEmailConfirmationSignIn(_that.email);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String email,  String password)?  signIn,TResult? Function( String password,  SignupModel signupData)?  signUp,TResult? Function( Session session)?  sessionRestored,TResult? Function( Session session)?  completeSignup,TResult? Function( String email)?  resendEmailConfirmation,TResult? Function( String email)?  resendEmailConfirmationSignIn,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String email,  String password)?  signIn,TResult? Function( String password,  SignupModel signupData)?  signUp,TResult? Function( Session session)?  sessionRestored,TResult? Function( Session session)?  completeSignup,TResult? Function( String email)?  resendEmailConfirmation,TResult? Function( String email)?  resendEmailConfirmationSignIn,TResult? Function( String email)?  resetPasswordEmail,TResult? Function( String password)?  updatePassword,}) {final _that = this;
 switch (_that) {
 case AuthEventSignIn() when signIn != null:
 return signIn(_that.email,_that.password);case AuthEventSignUp() when signUp != null:
@@ -193,7 +203,9 @@ return signUp(_that.password,_that.signupData);case AuthEventSessionRestored() w
 return sessionRestored(_that.session);case AuthEventCompleteSignup() when completeSignup != null:
 return completeSignup(_that.session);case AuthEventResendEmailConfirmation() when resendEmailConfirmation != null:
 return resendEmailConfirmation(_that.email);case AuthEventResendEmailConfirmationSignIn() when resendEmailConfirmationSignIn != null:
-return resendEmailConfirmationSignIn(_that.email);case _:
+return resendEmailConfirmationSignIn(_that.email);case AuthEventResetPasswordEmail() when resetPasswordEmail != null:
+return resetPasswordEmail(_that.email);case AuthEventUpdatePassword() when updatePassword != null:
+return updatePassword(_that.password);case _:
   return null;
 
 }
@@ -603,6 +615,138 @@ class _$AuthEventResendEmailConfirmationSignInCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? email = null,}) {
   return _then(AuthEventResendEmailConfirmationSignIn(
 email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class AuthEventResetPasswordEmail implements AuthEvent {
+  const AuthEventResetPasswordEmail({required this.email});
+  
+
+ final  String email;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AuthEventResetPasswordEmailCopyWith<AuthEventResetPasswordEmail> get copyWith => _$AuthEventResetPasswordEmailCopyWithImpl<AuthEventResetPasswordEmail>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthEventResetPasswordEmail&&(identical(other.email, email) || other.email == email));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,email);
+
+@override
+String toString() {
+  return 'AuthEvent.resetPasswordEmail(email: $email)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AuthEventResetPasswordEmailCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+  factory $AuthEventResetPasswordEmailCopyWith(AuthEventResetPasswordEmail value, $Res Function(AuthEventResetPasswordEmail) _then) = _$AuthEventResetPasswordEmailCopyWithImpl;
+@useResult
+$Res call({
+ String email
+});
+
+
+
+
+}
+/// @nodoc
+class _$AuthEventResetPasswordEmailCopyWithImpl<$Res>
+    implements $AuthEventResetPasswordEmailCopyWith<$Res> {
+  _$AuthEventResetPasswordEmailCopyWithImpl(this._self, this._then);
+
+  final AuthEventResetPasswordEmail _self;
+  final $Res Function(AuthEventResetPasswordEmail) _then;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? email = null,}) {
+  return _then(AuthEventResetPasswordEmail(
+email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class AuthEventUpdatePassword implements AuthEvent {
+  const AuthEventUpdatePassword({required this.password});
+  
+
+ final  String password;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AuthEventUpdatePasswordCopyWith<AuthEventUpdatePassword> get copyWith => _$AuthEventUpdatePasswordCopyWithImpl<AuthEventUpdatePassword>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthEventUpdatePassword&&(identical(other.password, password) || other.password == password));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,password);
+
+@override
+String toString() {
+  return 'AuthEvent.updatePassword(password: $password)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AuthEventUpdatePasswordCopyWith<$Res> implements $AuthEventCopyWith<$Res> {
+  factory $AuthEventUpdatePasswordCopyWith(AuthEventUpdatePassword value, $Res Function(AuthEventUpdatePassword) _then) = _$AuthEventUpdatePasswordCopyWithImpl;
+@useResult
+$Res call({
+ String password
+});
+
+
+
+
+}
+/// @nodoc
+class _$AuthEventUpdatePasswordCopyWithImpl<$Res>
+    implements $AuthEventUpdatePasswordCopyWith<$Res> {
+  _$AuthEventUpdatePasswordCopyWithImpl(this._self, this._then);
+
+  final AuthEventUpdatePassword _self;
+  final $Res Function(AuthEventUpdatePassword) _then;
+
+/// Create a copy of AuthEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? password = null,}) {
+  return _then(AuthEventUpdatePassword(
+password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

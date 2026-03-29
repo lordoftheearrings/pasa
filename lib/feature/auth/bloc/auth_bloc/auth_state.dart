@@ -14,5 +14,8 @@ abstract class AuthState with _$AuthState {
       AuthVerificationNeededFromSignIn;
   const factory AuthState.authenticated(UserData user) = AuthAuthenticated;
   const factory AuthState.otpResent({@Default(0) int resendId}) = AuthOtpResent;
+  const factory AuthState.resetPasswordSent({required String email}) =
+      AuthResetPasswordSent;
+  const factory AuthState.passwordUpdated() = AuthPasswordUpdated;
   const factory AuthState.error(String message) = AuthError;
 }

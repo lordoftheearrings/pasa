@@ -23,4 +23,8 @@ abstract class AuthEvent with _$AuthEvent {
   const factory AuthEvent.resendEmailConfirmationSignIn({
     required String email,
   }) = AuthEventResendEmailConfirmationSignIn;
+  const factory AuthEvent.resetPasswordEmail({required String email}) =
+      AuthEventResetPasswordEmail;
+  const factory AuthEvent.updatePassword({required String password}) =
+      AuthEventUpdatePassword;
 }

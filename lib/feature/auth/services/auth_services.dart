@@ -86,4 +86,49 @@ class AuthServices extends BaseAuthServices {
       emailRedirectTo: 'pasa://auth/${AppLinkUrls.verifyUserbutHasNoProfile}',
     );
   }
+
+  @override
+  Future<void> resetPasswordEmail(String email) async {
+    try {
+      await _supabase.auth.resetPasswordForEmail(
+        email,
+        redirectTo: 'pasa://auth/${AppLinkUrls.resetPassword}',
+      );
+    } on AuthApiException catch (e) {
+      throw AuthExceptionMapper.fromSupabaseError(e);
+    } on SocketException catch (e) {
+      throw NetworkException(
+        message: ExceptionMessages.noNetworkMessage,
+        original: e,
+      );
+    }
+  }
+
+  @override
+  Future<void> updatePassword(String password) async {
+    try {
+      await _supabase.auth.updateUser(UserAttributes(password: password));
+    } on AuthApiException catch (e) {
+      throw AuthExceptionMapper.fromSupabaseError(e);
+    } on SocketException catch (e) {
+      throw NetworkException(
+        message: ExceptionMessages.noNetworkMessage,
+        original: e,
+      );
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      await _supabase.auth.signOut();
+    } on AuthApiException catch (e) {
+      throw AuthExceptionMapper.fromSupabaseError(e);
+    } on SocketException catch (e) {
+      throw NetworkException(
+        message: ExceptionMessages.noNetworkMessage,
+        original: e,
+      );
+    }
+  }
 }

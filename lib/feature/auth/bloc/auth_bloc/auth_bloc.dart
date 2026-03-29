@@ -27,6 +27,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEventResendEmailConfirmationSignIn>(
       _onResendEmailConfirmationSignIn,
     );
+    on<AuthEventResetPasswordEmail>(_onResetPasswordEmail);
+    on<AuthEventUpdatePassword>(_onUpdatePassword);
 
     _authSub = sessionService.sessionStream.listen((session) {
       if (session != null) {
@@ -133,5 +135,40 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final uniqueId = DateTime.now().millisecondsSinceEpoch;
     await repository.resendEmailConfirmationLinkfromSignIn(event.email);
     emit(AuthState.otpResent(resendId: uniqueId));
+  }
+
+  Future<void> _onResetPasswordEmail(
+    AuthEventResetPasswordEmail event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthState.loading());
+    try {
+      await repository.resetPasswordEmail(event.email);
+      emit(AuthState.resetPasswordSent(email: event.email));
+    } on SupabaseAuthException catch (e) {
+      emit(AuthState.error(e.message));
+    } on NetworkException catch (e) {
+      emit(AuthState.error(e.message));
+    } catch (e) {
+      emit(AuthState.error(ExceptionMessages.userFriendlyMessage));
+    }
+  }
+
+  Future<void> _onUpdatePassword(
+    AuthEventUpdatePassword event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthState.loading());
+    try {
+      await repository.updatePassword(event.password);
+      await repository.signOut();
+      emit(const AuthState.passwordUpdated());
+    } on SupabaseAuthException catch (e) {
+      emit(AuthState.error(e.message));
+    } on NetworkException catch (e) {
+      emit(AuthState.error(e.message));
+    } catch (e) {
+      emit(AuthState.error(ExceptionMessages.userFriendlyMessage));
+    }
   }
 }

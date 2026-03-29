@@ -3,6 +3,8 @@ import 'package:pasa/feature/auth/bloc/auth_bloc/auth_bloc.dart';
 import 'package:pasa/feature/auth/bloc/auth_bloc/auth_event.dart';
 import 'package:pasa/feature/auth/bloc/auth_bloc/auth_state.dart';
 import 'package:pasa/feature/auth/components/password_with_confirmation.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pasa/config/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:pasa/core/components/buttons/app_button.dart';
 import 'package:pasa/core/components/text/app_text.dart';
@@ -31,10 +33,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.black,
       appBar: AppBar(
         forceMaterialTransparency: true,
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.black,
         title: AppText(
           label: 'Set New Password',
           style: AppTextStyles.primaryColorText16.copyWith(
@@ -61,9 +63,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 SizedBox(height: 32.0),
                 PasswordWithConfirmation(
                   onPasswordConfirmed: (finalPw) {
-                    pw = finalPw;
+                    pw = finalPw ?? '';
+                    isPasswordValid.value = finalPw != null;
                   },
-                 
                 ),
               ],
             ),
@@ -71,7 +73,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         ),
       ),
       bottomSheet: Container(
-        color: AppColors.white,
+        color: AppColors.black,
         child: Padding(
           padding: EdgeInsets.only(left: 16, right: 16, bottom: 32),
           child: BlocConsumer<AuthBloc, AuthState>(
@@ -82,6 +84,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     context,
                     'Password updated! Please sign in again',
                   );
+                  context.goNamed(AppRoutes.signIn.name);
                 });
               } else if (state is AuthError) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
