@@ -35,14 +35,14 @@ class CrashService {
   void cancel() {
     _timer?.cancel();
     state.value = CrashState.idle;
-    getIt<BleController>().cancelSOS(); // Add this line
+    getIt<BleController>().cancelSOS();
   }
 
   void sendSos() {
     _timer?.cancel();
     state.value = CrashState.sent;
 
-    // 🔥 SEND SMS / API / BACKEND HERE
+    // TODO: 🔥 SEND SMS / API / BACKEND HERE
 
     // Reset after send
     Future.delayed(const Duration(seconds: 2), () {
@@ -106,7 +106,7 @@ class _CrashOverlayState extends State<CrashOverlay> {
     await _audioPlayer.setReleaseMode(ReleaseMode.loop);
     await _audioPlayer.play(AssetSource('alarm.mp3'));
 
-    // 2. Start vibration loop if device supports it
+    // 2. Start vibration loop if device supports it  
     _vibrating = true;
     _vibrateLoop();
   }

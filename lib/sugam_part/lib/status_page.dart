@@ -74,8 +74,6 @@ class _StatusPageState extends State<StatusPage> with TickerProviderStateMixin {
     if (!mounted) return;
 
     setState(() {
-
-
       // Update history
       if (heartRate > 0) {
         heartRateHistory.add(heartRate);
@@ -183,17 +181,24 @@ class _StatusPageState extends State<StatusPage> with TickerProviderStateMixin {
         backgroundColor: Colors.grey[900],
         elevation: 0,
         title: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "Status",
-                style: TextStyle(
-                  color: Colors.green,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Status",
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
               ),
+              Spacer(),
               Text(
                 widget.bleController.connectionStatus,
                 style: TextStyle(

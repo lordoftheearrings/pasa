@@ -243,39 +243,55 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ),
             Row(
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 5,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isConnected
-                        ? Colors.green.withOpacity(0.2)
-                        : Colors.grey.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: isConnected ? Colors.green : Colors.grey,
-                          shape: BoxShape.circle,
-                        ),
+                Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
                       ),
-                      const SizedBox(width: 6),
-                      Text(
-                        isConnected ? "ONLINE" : "OFFLINE",
+                      decoration: BoxDecoration(
+                        color: isConnected
+                            ? Colors.green.withOpacity(0.2)
+                            : Colors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              color: isConnected ? Colors.green : Colors.grey,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            isConnected ? "ONLINE" : "OFFLINE",
+                            style: TextStyle(
+                              color: isConnected ? Colors.green : Colors.grey,
+                              fontSize: 9,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Align(
+                      alignment: AlignmentGeometry.centerRight,
+                      child: Text(
+                        'Hello, Rider',
                         style: TextStyle(
-                          color: isConnected ? Colors.green : Colors.grey,
-                          fontSize: 9,
+                          color: Colors.green,
+                          fontSize: 16,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 const SizedBox(width: 10),
                 GestureDetector(
@@ -291,10 +307,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       color: Colors.grey[800],
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.person,
-                      color: Colors.white,
-                      size: 24,
+                    child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: Image.asset(AppImages.helmet, fit: BoxFit.contain),
                     ),
                   ),
                 ),
@@ -344,7 +360,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           Offstage(
             offstage: true,
-            child: DetailsPage(key: DetailsPage.detailsKey,bleController: BleController(),),
+            child: DetailsPage(
+              key: DetailsPage.detailsKey,
+              bleController: BleController(),
+            ),
           ),
           Positioned(
             top: 0,

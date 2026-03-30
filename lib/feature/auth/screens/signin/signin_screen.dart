@@ -82,6 +82,7 @@ class _SigninScreenState extends State<SigninScreen> {
           });
         } else if (state is AuthAuthenticated && state.user.id.isNotEmpty) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            Future.delayed(Duration(seconds: 1));
             AppSnackbar.showSuccess(context, 'Login Successful');
           });
         } else if (state is AuthError) {

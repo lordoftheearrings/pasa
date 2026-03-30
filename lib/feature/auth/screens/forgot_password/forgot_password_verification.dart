@@ -101,7 +101,7 @@ class _ForgotPasswordVerificationState
                       children: [
                         CountdownTimer(
                           controller: _controller,
-                          initialDuration: const Duration(seconds: 120),
+                          initialDuration: const Duration(seconds: 120),  
                           onTimerEnd: () => isButtonDisabled.value = false,
                           autoStart: true,
                         ),

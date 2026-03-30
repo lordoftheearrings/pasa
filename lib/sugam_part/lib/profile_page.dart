@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pasa/core/components/buttons/app_button.dart';
 import 'package:pasa/core/components/messengers/dialog_box.dart';
 import 'package:pasa/core/components/selectors/date_selector.dart';
+import 'package:pasa/core/constants/app_images.dart';
 import 'package:pasa/core/top_level/di.dart';
 import 'package:pasa/sugam_part/lib/ble_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -286,10 +287,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ],
                     ),
-                    child: const Icon(
-                      Icons.person,
-                      size: 80,
-                      color: Colors.white,
+                    child: SizedBox(
+                      height: 100,
+                      child: Image.asset(AppImages.helmet, fit: BoxFit.contain),
                     ),
                   ),
 
@@ -456,7 +456,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
                   // Stats Cards
                   // Row(
-                  //   //TODO: add stats
                   //   children: [
                   //     _buildStatCard(
                   //       icon: Icons.access_time,

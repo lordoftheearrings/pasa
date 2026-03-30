@@ -1091,8 +1091,9 @@ class BleController {
 
   // ==================== SCANNING ====================
   Future<void> startAutoScan() async {
-    if (_isDisposed || _isScanning || _isConnecting)
+    if (_isDisposed || _isScanning || _isConnecting) {
       return; // restore _isScanning check
+    }
 
     _reconnectTimer?.cancel();
 
@@ -1197,6 +1198,7 @@ class BleController {
         onTimeout: () => false,
       );
       if (scanning) await FlutterBluePlus.stopScan();
+    // ignore: empty_catches
     } catch (e) {}
 
     _isScanning = false;
@@ -1226,6 +1228,7 @@ class BleController {
             const Duration(seconds: 3),
           );
           await Future.delayed(const Duration(milliseconds: 500));
+        // ignore: empty_catches
         } catch (e) {}
       }
 
@@ -1410,7 +1413,7 @@ class BleController {
       onStatusChange?.call("Connected & Ready");
     } catch (e) {
       logger.e("Service discovery failed: $e");
-      throw e;
+      rethrow;
     }
   }
 
@@ -1714,6 +1717,7 @@ class BleController {
           onTimeout: () => false,
         );
         if (scanning) await FlutterBluePlus.stopScan();
+      // ignore: empty_catches
       } catch (e) {}
 
       if (connectedDevice != null) {
@@ -1721,6 +1725,7 @@ class BleController {
           await connectedDevice!.disconnect().timeout(
             const Duration(seconds: 5),
           );
+        // ignore: empty_catches
         } catch (e) {}
       }
 

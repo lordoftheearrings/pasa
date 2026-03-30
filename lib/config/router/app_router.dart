@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:pasa/core/components/navbar/bottom_navbar.dart';
-import 'package:pasa/core/services/crash_service.dart';
 import 'package:pasa/core/services/user_session_service.dart';
 import 'package:pasa/core/top_level/di.dart';
 import 'package:pasa/core/urls/app_link_urls.dart';
