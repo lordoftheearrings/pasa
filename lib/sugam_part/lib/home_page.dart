@@ -231,7 +231,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    "Safety First, Always",
+                    "Portable Automated SOS Alert",
                     style: TextStyle(
                       color: Colors.grey[400],
                       fontSize: 12,

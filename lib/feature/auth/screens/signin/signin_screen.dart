@@ -114,6 +114,13 @@ class _SigninScreenState extends State<SigninScreen> {
                         label: 'Welcome, to PASA',
                         style: AppTextStyles.heading1,
                       ),
+                      const SizedBox(height: 8.0),
+                      AppText(
+                        label: 'Portable Automated SOS Alert',
+                        style: AppTextStyles.heading3.copyWith(
+                          color: AppColors.success,
+                        ),
+                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.1,
                       ),
