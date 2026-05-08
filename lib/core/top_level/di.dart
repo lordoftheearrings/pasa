@@ -8,7 +8,7 @@ import 'package:pasa/feature/auth/services/base_auth_services.dart';
 import 'package:pasa/feature/auth/services/signup_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:pasa/sugam_part/lib/ble_controller.dart';
+import 'package:pasa/whole_app/lib/ble_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

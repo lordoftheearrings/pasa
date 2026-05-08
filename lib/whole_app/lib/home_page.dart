@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:pasa/core/constants/app_colors.dart';
 import 'package:pasa/core/constants/app_images.dart';
 import 'package:pasa/core/top_level/di.dart';
-import 'package:pasa/sugam_part/lib/details_page.dart';
+import 'package:pasa/whole_app/lib/details_page.dart';
 import 'ble_controller.dart';
 import 'ble_screen.dart';
 import 'profile_page.dart';

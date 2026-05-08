@@ -3,7 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:pasa/core/constants/app_colors.dart';
 import 'package:pasa/core/top_level/di.dart';
-import 'package:pasa/sugam_part/lib/ble_controller.dart';
+import 'package:pasa/whole_app/lib/ble_controller.dart';
 import 'package:vibration/vibration.dart';
 
 enum CrashState { idle, countdown, sent }

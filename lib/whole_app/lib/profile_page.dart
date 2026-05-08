@@ -6,7 +6,7 @@ import 'package:pasa/core/components/messengers/dialog_box.dart';
 import 'package:pasa/core/components/selectors/date_selector.dart';
 import 'package:pasa/core/constants/app_images.dart';
 import 'package:pasa/core/top_level/di.dart';
-import 'package:pasa/sugam_part/lib/ble_controller.dart';
+import 'package:pasa/whole_app/lib/ble_controller.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfilePage extends StatefulWidget {
