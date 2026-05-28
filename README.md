@@ -1,6 +1,9 @@
-# 🪖 PASA – Smart Helmet Safety System (Mobile App) {UI Screenshots Below}
+# 🪖 PASA – Smart Helmet Safety System (Mobile App) {UI Screenshots Below} {Android APK in Releases}
 
 **PASA** is a Flutter-based mobile application built to enhance rider safety by integrating with a smart helmet system. The app detects accidents through helmet sensors and immediately triggers emergency alerts with location sharing to predefined contacts.
+
+## 📽️ Full System Demonstration Video 
+👉 [Watch Project Demo](https://drive.google.com/file/d/1mVAcl6Bb3cz96yrwY0p5WzqenNFSkbIX/view?usp=sharing)
 
 ## 🚀 Overview
 
